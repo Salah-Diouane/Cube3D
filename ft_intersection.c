@@ -37,7 +37,7 @@ static double hor_inter(t_data *data, t_point *inter, double angle)
 
     tl_ht = data->tl_ht;
     get_dir(angle, &x_dir, &y_dir);
-    inter->y = (data->plr->y / tl_ht) * tl_ht;
+    inter->y = (int)(data->plr->y / tl_ht) * tl_ht;
     while ((0 < inter->y) && (inter->y < \
         (data->tl_ht * 20)))
     {
@@ -65,7 +65,7 @@ static double ver_inter(t_data *data, t_point *inter, double angle)
 
     tl_wd = data->tl_wd;
     get_dir(angle, &x_dir, &y_dir);
-    inter->x = (data->plr->x / tl_wd) * tl_wd;
+    inter->x = (int)(data->plr->x / tl_wd) * tl_wd;
     while ((0 < inter->x) && (inter->x < \
         (data->tl_wd * 20)))
     {

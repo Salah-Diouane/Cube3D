@@ -1,5 +1,17 @@
 # include "cube.h"
 
+double  real_angle(double angle)
+{
+    double      two_pi;
+
+    two_pi = 2 * M_PI;
+    if (angle < 0)
+        angle += two_pi;
+    else if (two_pi <= angle)
+        angle -= two_pi;
+    return (angle);
+}
+
 static int  steps(t_data *data, t_point *inter, t_point *incr)
 {
     double       d_x;
@@ -49,12 +61,11 @@ void    ft_drop_rays(t_data *data)
     x = data->wd_wh;
     rad = (M_PI / 180);
     incr = ((60 * rad) / data->wd_wh);
-    angle = ((data->plr->d - 30) + 360 * \
-        ((data->plr->d - 30) < 0)) * rad;
+    angle = real_angle(data->plr->d - \
+        (30 * rad));
     while (x--)
     {
-        if ((2 * M_PI) <= angle)
-            angle = angle - (2 * M_PI);
+        angle = real_angle(angle);
         dst = ft_get_inter(data, &inter, angle);
         data->array[x].x = inter.x;
         data->array[x].y = inter.y;

@@ -42,13 +42,11 @@ static double get_height(t_data *data, int i)
 {
     double      oppo;
     double      adja;
-    double      pro_plan;
     double      result;
 
     adja = fabs(data->plr->x - data->array[i].x);
     oppo = fabs(data->plr->y - data->array[i].y);
-    pro_plan = 760 / (2 * tan(30 * (M_PI / 180)));
-    result = ((10 * pro_plan) / sqrt((oppo * oppo) + \
+    result = ((100 * 100) / sqrt((oppo * oppo) + \
         (adja * adja)));
     return (result);
 } 

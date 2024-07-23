@@ -28,19 +28,16 @@ static void ft_for_back_ward(t_data *data, int keycode)
 {
     double      x;
     double      y;
-    double      angle;
 
     if (keycode == 87)
     {
-        angle = (double)(data->plr->d * (M_PI / 180));
-        x = data->plr->x + (4 * cos(angle));
-        y = data->plr->y + (4 * sin(angle) * -1);
+        x = data->plr->x + (4 * cos(data->plr->d));
+        y = data->plr->y + (4 * sin(data->plr->d) * -1);
     }
     else if (keycode == 83)
     {
-        angle = (double)((data->plr->d + 180) * (M_PI / 180));
-        x = data->plr->x + (4 * cos(angle));
-        y = data->plr->y + (4 * sin(angle) * -1);
+        x = data->plr->x + (4 * cos(data->plr->d) * -1);
+        y = data->plr->y + (4 * sin(data->plr->d));
     }
     if (!ft_check_next(data, x, y))
         (data->plr->x = x, data->plr->y = y);
@@ -48,21 +45,23 @@ static void ft_for_back_ward(t_data *data, int keycode)
 
 static void ft_go_left_right(t_data *data, int keycode)
 {
-    double      x;
-    double      y;
+    double       x;
+    double       y;
     double       angle;
 
     if (keycode == 65)
     {
-        angle = (double)((data->plr->d + 90) * (M_PI / 180));
-        x = data->plr->x + (4 * cos(angle));
-        y = data->plr->y + (4 * sin(angle) * -1);
+        angle = real_angle(data->plr->d + \
+            (M_PI / 2));
+        x = data->plr->x + (double)(4 * cos(angle));
+        y = data->plr->y + (double)(4 * sin(angle) * -1);
     }
     else if (keycode == 68)
     {
-        angle = (double)((data->plr->d + 270) * (M_PI / 180));
-        x = data->plr->x + (4 * cos(angle));
-        y = data->plr->y + (4 * sin(angle) * -1);
+        angle = real_angle(data->plr->d + \
+            (M_PI + (M_PI / 2)));
+        x = data->plr->x + (double)(4 * cos(angle));
+        y = data->plr->y + (double)(4 * sin(angle) * -1);
     }
     if (!ft_check_next(data, x, y))
         (data->plr->x = x, data->plr->y = y);
@@ -75,9 +74,11 @@ mlx_keyfunc ft_move_plr(mlx_key_data_t key, t_data *data)
     else if ((key.key == 83) || (key.key == 87))
         ft_for_back_ward(data, key.key);
     else if (key.key == 262)
-        data->plr->d = ft_real_angle(data->plr->d - 5);
+        data->plr->d = real_angle(data->plr->d - \
+            (double)(5 * (M_PI / 180)));
     else if (key.key == 263)
-        data->plr->d = ft_real_angle(data->plr->d + 5);
+        data->plr->d = real_angle(data->plr->d + \
+            (double)(5 * (M_PI / 180)));
     ft_clear_image(data->rays_img);
     ft_clear_image(data->ddd__img);
     ft_drop_rays(data);

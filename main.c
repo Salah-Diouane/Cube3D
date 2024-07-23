@@ -1,27 +1,18 @@
 # include "cube.h"
 
-int ft_real_angle(int angle)
-{
-    if (angle < 0)
-        angle += 360;
-    else if (360 <= angle)
-        angle -= 360;
-    return (angle);
-}
-
 void    ft_fill_img(mlx_image_t *img)
 {
     int     i;
     int     j;
 
-    j = -1;
-    while (++j < img->height)
+    j = 0;
+    i = -1;
+    while ((++i < img->width) && (j < img->height))
     {
-        i = -1;
-        while (++i < img->width)
-            mlx_put_pixel(img, i, j, 0xff00000f);
+        mlx_put_pixel(img, i, j, 0xff00000f);
+        if ((i + 1) == img->width)
+            (i = -1, j++);
     }
-
 }
 
 static int ft_mini_map(t_data *data)
@@ -29,18 +20,16 @@ static int ft_mini_map(t_data *data)
     int     i;
     int     j;
 
-    j = -1; 
-    while (data->map[++j])
+    j = 0; 
+    i = -1;
+    while (data->map[j][++i])
     {
-        i = -1;
-        while (data->map[j][++i])
-        {
-            if (data->map[j][i] == '1')
-                mlx_image_to_window(data->mlx, \
-                    data->wall_img, (i * data->tl_wd), \
-                    (j * data->tl_ht));
-
-        }
+        if (data->map[j][i] == '1')
+            mlx_image_to_window(data->mlx, \
+                data->wall_img, (i * data->tl_wd), \
+                (j * data->tl_ht));
+        if (!data->map[j][(i + 1)])
+            (i = -1, j++);
     }
     return (0);
 }
@@ -93,7 +82,7 @@ int main()
     if (ft_create_window(&data))
         return (-1);
     mlx_key_hook(data.mlx, ft_move_plr, &data);
-    ft_mini_map(&data);
+    // ft_mini_map(&data);
     mlx_loop(data.mlx);
     return (0);
 }
