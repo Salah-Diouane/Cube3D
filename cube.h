@@ -33,7 +33,10 @@ typedef struct  s_point
 typedef struct  s_face
 {
     char            dir;
+    int             fix;
     int             rays;
+    double          x_ref;
+    double          y_ref;
     double          height_1;
     double          height_2;
     struct s_face   *next;
@@ -42,8 +45,8 @@ typedef struct  s_face
 typedef struct  s_plr
 {
     int         d;
-    int         x;
-    int         y;
+    int      x;
+    int      y;
 }               t_plr;
 
 typedef struct  s_data
@@ -62,12 +65,13 @@ typedef struct  s_data
     mlx_image_t *ddd__img;
 }               t_data;
 
+int         ft_real_angle(int angle);
 void        ft_drop_rays(t_data *data);
+void        ft_render_wall(t_data *data);
+void        ft_create_list(t_data *data);
 char        **ft_split(char const *s, char c);
 mlx_keyfunc ft_move_plr(mlx_key_data_t key, t_data *data);
-void        ft_render_wall(t_data *data);
 double      ft_get_inter(t_data *data, t_point *inter, double angle);
-void        ft_create_list(t_data *data);
 
 // parsing : 
 char	**read_map();

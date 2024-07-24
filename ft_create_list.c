@@ -6,19 +6,34 @@
 /*   By: bramzil <bramzil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:22:54 by bramzil           #+#    #+#             */
-/*   Updated: 2024/07/24 13:15:31 by bramzil          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:52:32 by bramzil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cube.h"
 
-static t_face   *ft_create_node(void)
+void ft_free_lst(t_face *lst)
+{
+    t_face      *tmp;
+    
+    while (lst && lst->next)
+    {
+        tmp = lst;
+        lst = lst->next;
+        free (tmp);
+    }
+}
+
+static t_face   *ft_create_node(double x_ref, double y_ref)
 {
     t_face      *node;
     
     node = (t_face *)malloc(sizeof(t_face));
     node->height_1 = -1;
+    node->x_ref = x_ref;
+    node->y_ref = y_ref;
     node->rays = 0;
+    node->fix = 0;
     node->next = NULL;
     return (node);
 }
@@ -38,79 +53,52 @@ static double get_height(t_data *data, int i)
     return (result);
 } 
 
-void ft_free_lst(t_face *lst)
+static int create_sub_fun(t_data *data, t_face **tmp, int i)
 {
-    t_face      *tmp;
-    
-    while (lst && lst->next)
-    {
-        tmp = lst;
-        lst = lst->next;
-        free (tmp);
+    if (((*tmp)->fix == 1) && (data->array[i].x == (*tmp)->x_ref))
+    {   
+        if ((i == 759) || (data->array[i + 1].x != (*tmp)->x_ref))
+            (*tmp)->height_2 = get_height(data, i);
     }
+    else if (((*tmp)->fix == 2) && (data->array[i].y == (*tmp)->y_ref))
+    {   
+        if ((i == 759) || ( data->array[i + 1].y != (*tmp)->y_ref))
+            (*tmp)->height_2 = get_height(data, i);
+    }
+    else
+    {
+        (*tmp)->next = ft_create_node(data->array[i].x, \
+            data->array[i].y);
+        if (!(*tmp)->next)
+            return (-1);
+        (*tmp) = (*tmp)->next;
+    }
+    return (0);
 }
 
 void    ft_create_list(t_data *data)
 {
     int         i;
-    int         fx;
-    t_point     ref;
     t_face      *tmp;
-    double      pr_h;
 
-    (1) && (i = -1, fx = 0);
-    tmp = ft_create_node();
+    i = -1;
+    tmp = ft_create_node(data->array[0].x, \
+        data->array[0].y);
     data->face_lst = tmp;
-    ref.x = data->array[0].x;
-    ref.y = data->array[0].y;
     while (++i < 760)
     {
-        if (fx == 0)
+        if (tmp->fix == 0)
         {
-            if (data->array[i].x != ref.x)
-                fx = 2;
-            else if (data->array[i].y != ref.y)
-                fx = 1;
+            ((data->array[i].x != tmp->x_ref) && (tmp->fix = 2));
+            ((data->array[i].y != tmp->y_ref) && (tmp->fix = 1));
             if (tmp->height_1 == -1)
                 tmp->height_1 = get_height(data, i);
-            if ((i == 759) || (data->array[i + 1].x != ref.x))
+            if ((i == 759) || (data->array[i + 1].x != tmp->x_ref))
                 tmp->height_2 = get_height(data, i);
-            tmp->rays++;
-        }
-        else if ((fx == 1) && (data->array[i].x == ref.x))
-        {
-            if ((i == 759) || (data->array[i + 1].x != ref.x))
-                tmp->height_2 = get_height(data, i);
-            tmp->rays++;
-        }
-        else if ((fx == 2) && (data->array[i].y == ref.y))
-        {
-            if ((i == 759) || ( data->array[i + 1].y != ref.y))
-                tmp->height_2 = get_height(data, i);
-            tmp->rays++;
         }
         else
-        {
-            ref.x = data->array[i].x;
-            ref.y = data->array[i].y;
-            tmp->next = ft_create_node();
-    
-            if (!tmp->next)
-                break ;
-            tmp = tmp->next;
-            tmp->rays++;
-            fx = 0;
-        }
+            create_sub_fun(data, &tmp, i);
+        tmp->rays++;
     }
-    i = 0;
-    t_face      *tmp1;
-    tmp1 = data->face_lst;
-    while (tmp1)
-    {
-        printf("h1 : %f\th2 : %f\trays : %d\n", tmp1->height_1, tmp1->height_2, tmp1->rays);
-        i++;
-        tmp1 = tmp1->next;
-    }
-    printf("nbr of faces : %d\n", i);
 }
 
