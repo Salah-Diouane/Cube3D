@@ -8,7 +8,8 @@ SRCS			= 	main.c \
 					ft_intersection.c \
 					parsing/get_next_line_utils.c \
 					parsing/get_next_line.c \
-					parsing/parsing.c 
+					parsing/parsing.c \
+					ft_create_list.c \
 
 
 ######################### object files ###############################

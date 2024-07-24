@@ -30,7 +30,7 @@ static int ft_draw_line(t_data *data, t_point *inter)
     while (++i < end)
     {
         mlx_put_pixel(data->rays_img, start.x, \
-            start.y, 0xffff00f0);
+            start.y, 0xffff000f);
         start.x += incr.x;
         start.y += incr.y;
     }
@@ -46,19 +46,21 @@ void    ft_drop_rays(t_data *data)
     double   angle;
     t_point  inter;
 
-    x = data->wd_wd;
+    x = data->wd_wh;
     rad = (M_PI / 180);
-    incr = ((60 * rad) / data->wd_wd);
+    incr = ((60 * rad) / data->wd_wh);
     angle = ((data->plr->d - 30) + 360 * \
         ((data->plr->d - 30) < 0)) * rad;
     while (x--)
     {
         if ((2 * M_PI) <= angle)
             angle = angle - (2 * M_PI);
-        printf("interx: %f, inter y: %f\n", inter.x, inter.y);
         dst = ft_get_inter(data, &inter, angle);
+        data->array[x].x = inter.x;
+        data->array[x].y = inter.y;
         ft_draw_line(data, &inter);
-        ft_render_wall(data, dst, x);
         angle += incr;
     }
+    ft_create_list(data);
+    ft_render_wall(data);
 }

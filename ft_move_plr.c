@@ -117,13 +117,13 @@ mlx_keyfunc ft_move_plr(mlx_key_data_t key, t_data *data)
         ft_for_back_ward(data, key.key);
     else if (key.key == 262)
     {
-        data->plr->d -= 10;
+        data->plr->d -= 5;
         if (data->plr->d < 0)
             data->plr->d += 360;
     }
     else if (key.key == 263)
     {
-        data->plr->d += 10;
+        data->plr->d += 5;
         data->plr->d %= 360;
     }
     ft_clear_image(data->rays_img);
