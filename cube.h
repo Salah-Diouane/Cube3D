@@ -5,7 +5,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <MLX42.h>
+# include "MLX42/MLX42.h"
 # include <stdarg.h>
 
 typedef struct  s_point
@@ -36,6 +36,7 @@ typedef struct  s_plr
 
 typedef struct  s_data
 {
+	int32_t			*texture;
     char            **map;
     int             wd_ht;
     int             wd_wh;

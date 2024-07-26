@@ -56,6 +56,32 @@ int ft_create_window(t_data  *data)
     return (0);
 }
 
+int32_t *ft_get_img()
+{
+    int32_t *txt;
+    int     i;
+    int     j;
+
+    i = 0;
+    txt = (int32_t *)malloc(sizeof(int32_t) * 200);
+    if(!txt)
+        return (NULL);
+    while (i < 20)
+    {
+        j = 0;
+        while (j < 20)
+        {
+            if ((i % 2 == 0) || (j % 2 == 0))
+                txt[i] = 0x005050FF;
+            else
+                txt[i] = 0x00A0A0FF;
+            j++;
+        }
+        i++;
+    }
+    return (txt);
+}
+
 int main()
 {
     t_plr   plr;
@@ -74,6 +100,8 @@ int main()
     data.wd_wh = 760;
     data.plr = &plr;
     data.map = ft_split(map, ' ');
+    data.texture = ft_get_img();
+    // data.texture = mlx_load_xpm42("wall.xpm");
     if (!data.map)
         return (printf("ft_split fails!!\n"));
     data.array = (t_point *)malloc(sizeof(t_point) * data.wd_wh);

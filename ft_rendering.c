@@ -1,15 +1,24 @@
 # include "cube.h"
 
-static int  ft_render_line(t_data *data, double ht, double x)
+static int  ft_render_line(t_data *data, t_face *tmp, double ht, double x)
 {
     double      y;
+    double      top;
+    int         off_x;
+    int         off_y;
 
-    y = (data->wd_ht / 2) - (ht / 2);
+    if (tmp->fix == 1)
+        off_x = (int)data->array[(int)x].x % 20;
+    else
+        off_x = (int)data->array[(int)x].y % 20;
+    y = (data->wd_ht / 2) - (ht / 2); // pixel ofla
+    top = y;
     while (y < ((data->wd_ht / 2) + (ht / 2)))
     {
+        off_y = (y - top) * (20 / ht);
         if (0 < y && y < data->wd_ht)
             mlx_put_pixel(data->ddd__img, \
-                x, y, 0xffffffff);
+                x, y, data->texture[off_y + off_x]);
         y++;
     }
     return (0);
@@ -30,7 +39,7 @@ void    ft_render_wall(t_data *data)
         step = (tmp->height_2 - tmp->height_1) / tmp->rays;
         while (++i < tmp->rays)
         {
-            ft_render_line(data, tmp->height_1, x);
+            ft_render_line(data, tmp, tmp->height_1, x);
             tmp->height_1 += step;
             x++;
         }

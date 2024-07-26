@@ -16,7 +16,9 @@ OBJS			= $(SRCS:%c=%o)
 
 NAME			= cube
 
-LINK			= -lmlx42 -lglfw -lm
+LINK			= -framework Cocoa -framework OpenGL -framework IOKit
+
+LIBS			= MLX42/libmlx42.a -lglfw3
 
 ############################# rules ###################################
 
@@ -26,7 +28,7 @@ o%				: %c cube.h
 	gcc -c $< -o $@
 
 $(NAME)			: $(OBJS)
-	gcc $(OBJS) $(LINK) -o $(NAME) -Ofaster
+	gcc $(OBJS) $(LINK) -o $(NAME) $(LIBS) -Ofaster
 
 clean			:
 	rm -rf *o
