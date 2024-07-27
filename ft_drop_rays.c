@@ -42,7 +42,7 @@ static int ft_draw_line(t_data *data, t_point *inter)
     while (++i < end)
     {
         mlx_put_pixel(data->rays_img, start.x, \
-            start.y, 0xffff000f);
+            start.y, 0xffff00aa);
         start.x += incr.x;
         start.y += incr.y;
     }
@@ -69,7 +69,8 @@ void    ft_drop_rays(t_data *data)
         dst = ft_get_inter(data, &inter, angle);
         data->array[x].x = inter.x;
         data->array[x].y = inter.y;
-        ft_draw_line(data, &inter);
+        if (x % 10 == 0)
+            ft_draw_line(data, &inter);
         angle += incr;
     }
     ft_create_list(data);

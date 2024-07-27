@@ -1,5 +1,30 @@
 # include "cube.h"
 
+int32_t *get_texture(int width, int height)
+{
+    int         i;
+    int         j;
+    int32_t     *texture;
+
+    j = -1;
+    texture = (int32_t *)malloc(sizeof(int32_t) * \
+        (width * height));
+    if (!texture)
+        return (NULL);
+    while (++j < height)
+    {
+        i = -1;
+        while (++i < width)
+        {
+            if ((i % 5 == 0) || (j % 5 == 0))
+                texture[(j * width) + i] = 0x000000ff;
+            else
+                texture[(j * width) + i] = 0xC19A6Bff;
+        }
+    }
+    return (texture);
+}
+
 void    ft_fill_img(mlx_image_t *img)
 {
     int     i;
@@ -9,7 +34,7 @@ void    ft_fill_img(mlx_image_t *img)
     i = -1;
     while ((++i < img->width) && (j < img->height))
     {
-        mlx_put_pixel(img, i, j, 0xff00000f);
+        mlx_put_pixel(img, i, j, 0xff0000aa);
         if ((i + 1) == img->width)
             (i = -1, j++);
     }
@@ -22,9 +47,9 @@ static int ft_mini_map(t_data *data)
 
     j = 0; 
     i = -1;
-    while (data->map[j][++i])
+    while (data->map[j])
     {
-        if (data->map[j][i] == '1')
+        if (data->map[j][++i] == '1')
             mlx_image_to_window(data->mlx, \
                 data->wall_img, (i * data->tl_wd), \
                 (j * data->tl_ht));
@@ -56,15 +81,16 @@ int ft_create_window(t_data  *data)
     return (0);
 }
 
-int32_t *ft_get_img()
+
+int32_t *ft_get_img_s()
 {
     int32_t *txt;
-    int     i;
-    int     j;
+    int i;
+    int j;
 
     i = 0;
     txt = (int32_t *)malloc(sizeof(int32_t) * 200);
-    if(!txt)
+    if (!txt)
         return (NULL);
     while (i < 20)
     {
@@ -82,11 +108,89 @@ int32_t *ft_get_img()
     return (txt);
 }
 
+int32_t *ft_get_img_n()
+{
+    int32_t *txt;
+    int i;
+    int j;
+
+    i = 0;
+    txt = (int32_t *)malloc(sizeof(int32_t) * 200);
+    if (!txt)
+        return (NULL);
+    while (i < 20)
+    {
+        j = 0;
+        while (j < 20)
+        {
+            if ((i % 2 == 0) || (j % 2 == 0))
+                txt[i] = 0x002350FF;
+            else
+                txt[i] = 0x00A000FF;
+            j++;
+        }
+        i++;
+    }
+    return (txt);
+}
+
+int32_t *ft_get_img_w()
+{
+    int32_t *txt;
+    int i;
+    int j;
+
+    i = 0;
+    txt = (int32_t *)malloc(sizeof(int32_t) * 200);
+    if (!txt)
+        return (NULL);
+    while (i < 20)
+    {
+        j = 0;
+        while (j < 20)
+        {
+            if ((i % 2 == 0) || (j % 2 == 0))
+                txt[i] = 0x000000FF;
+            else
+                txt[i] = 0x098450FF;
+            j++;
+        }
+        i++;
+    }
+    return (txt);
+}
+
+int32_t *ft_get_img_e()
+{
+    int32_t *txt;
+    int i;
+    int j;
+
+    i = 0;
+    txt = (int32_t *)malloc(sizeof(int32_t) * 200);
+    if (!txt)
+        return (NULL);
+    while (i < 20)
+    {
+        j = 0;
+        while (j < 20)
+        {
+            if ((i % 2 == 0) || (j % 2 == 0))
+                txt[i] = 0x00FF5655;
+            else
+                txt[i] = 0x000FF500;
+            j++;
+        }
+        i++;
+    }
+    return (txt);
+}
+
 int main()
 {
     t_plr   plr;
     char    *map = "1111111111 1000000001 1000010101 \
-                    1110000001 1010110101 1010000001 \
+                    1100000001 1010110101 1010000001 \
                     1000000011 1010110001 1000000001 \
                     1111111111";
     t_data  data;
@@ -100,8 +204,11 @@ int main()
     data.wd_wh = 760;
     data.plr = &plr;
     data.map = ft_split(map, ' ');
-    data.texture = ft_get_img();
-    // data.texture = mlx_load_xpm42("wall.xpm");
+    data.wall=  mlx_load_png("oo.png");
+    data.texture_w = ft_get_img_w();
+    data.texture_n = ft_get_img_n();
+    data.texture_s = ft_get_img_s();
+    data.texture_e = ft_get_img_e();
     if (!data.map)
         return (printf("ft_split fails!!\n"));
     data.array = (t_point *)malloc(sizeof(t_point) * data.wd_wh);
@@ -109,8 +216,8 @@ int main()
         return (printf("arr allocation!!\n"));
     if (ft_create_window(&data))
         return (-1);
-    mlx_key_hook(data.mlx, ft_move_plr, &data);
-    // ft_mini_map(&data);
+    mlx_loop_hook(data.mlx, ft_update, &data);
+    ft_mini_map(&data);
     mlx_loop(data.mlx);
     return (0);
 }

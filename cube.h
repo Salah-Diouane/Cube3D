@@ -5,7 +5,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "MLX42/MLX42.h"
+#include "MLX42/MLX42.h"
 # include <stdarg.h>
 
 typedef struct  s_point
@@ -36,7 +36,11 @@ typedef struct  s_plr
 
 typedef struct  s_data
 {
-	int32_t			*texture;
+    mlx_texture_t   *wall;
+	int32_t			*texture_n;
+	int32_t			*texture_s;
+	int32_t			*texture_w;
+	int32_t			*texture_e;
     char            **map;
     int             wd_ht;
     int             wd_wh;
@@ -56,7 +60,7 @@ void        ft_drop_rays(t_data *data);
 void        ft_render_wall(t_data *data);
 void        ft_create_list(t_data *data);
 char        **ft_split(char const *s, char c);
-mlx_keyfunc ft_move_plr(mlx_key_data_t key, t_data *data);
+void        ft_update(t_data *data);
 double      ft_get_inter(t_data *data, t_point *inter, double angle);
 
 # endif
