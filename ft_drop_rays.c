@@ -18,8 +18,8 @@ static int  steps(t_data *data, t_point *inter, t_point *incr)
     double       d_y;
     double       steps;
 
-    d_x = inter->x - data->plr->x;
-    d_y = inter->y - data->plr->y;
+    d_x = inter->x - data->plr.x;
+    d_y = inter->y - data->plr.y;
     steps = fabs(d_x);
     if (fabs(d_x) < fabs(d_y))
         steps = fabs(d_y);
@@ -32,12 +32,14 @@ static int ft_draw_line(t_data *data, t_point *inter)
 {
     int         i;
     int         end;
+    double      adja;
+    double      oppo;
     t_point     incr;
     t_point     start;
 
     i = -1;
-    start.x = data->plr->x;
-    start.y = data->plr->y;
+    start.x = 60;
+    start.y = 60;
     end = steps(data, inter, &incr);
     while (++i < end)
     {
@@ -45,11 +47,14 @@ static int ft_draw_line(t_data *data, t_point *inter)
             start.y, 0xffff00aa);
         start.x += incr.x;
         start.y += incr.y;
+        if ((start.x < 0) || (119 < start.x) || \
+            (start.y < 0) || (119 < start.y))
+            break ;
     }
     return (0);
 }
 
-void    ft_drop_rays(t_data *data)
+void    ft_cast_rays(t_data *data)
 {
     int      x;
     double   rad;
@@ -58,11 +63,12 @@ void    ft_drop_rays(t_data *data)
     double   angle;
     t_point  inter;
 
-    x = data->wd_wh;
+    x = data->wnd_wd;
     rad = (M_PI / 180);
-    incr = ((60 * rad) / data->wd_wh);
-    angle = real_angle(data->plr->d - \
+    incr = ((60 * rad) / data->wnd_wd);
+    angle = real_angle(data->plr.d - \
         (30 * rad));
+    ft_mini_map(data);
     while (x--)
     {
         angle = real_angle(angle);

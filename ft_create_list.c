@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bramzil <bramzil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:22:54 by bramzil           #+#    #+#             */
-/*   Updated: 2024/07/24 16:52:32 by bramzil          ###   ########.fr       */
+/*   Updated: 2024/07/28 11:59:18 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# include "cube.h"
 
 # include "cube.h"
 
@@ -44,8 +46,8 @@ static double get_height(t_data *data, int i)
     double      adja;
     double      result;
 
-    adja = fabs(data->plr->x - data->array[i].x);
-    oppo = fabs(data->plr->y - data->array[i].y);
+    adja = fabs(data->plr.x - data->array[i].x);
+    oppo = fabs(data->plr.y - data->array[i].y);
     result = ((100 * 100) / sqrt((oppo * oppo) + \
         (adja * adja)));
     return (result);
@@ -55,12 +57,12 @@ static int create_sub_fun(t_data *data, t_face **tmp, int i)
 {
     if (((*tmp)->fix == 1) && (data->array[i].x == (*tmp)->x_ref))
     {   
-        if ((i == 759) || (data->array[i + 1].x != (*tmp)->x_ref))
+        if ((i == (data->wnd_wd - 1)) || (data->array[i + 1].x != (*tmp)->x_ref))
             (*tmp)->height_2 = get_height(data, i);
     }
     else if (((*tmp)->fix == 2) && (data->array[i].y == (*tmp)->y_ref))
     {   
-        if ((i == 759) || ( data->array[i + 1].y != (*tmp)->y_ref))
+        if ((i == (data->wnd_wd - 1)) || ( data->array[i + 1].y != (*tmp)->y_ref))
             (*tmp)->height_2 = get_height(data, i);
     }
     else
@@ -83,7 +85,7 @@ void    ft_create_list(t_data *data)
     tmp = ft_create_node(data->array[0].x, \
         data->array[0].y);
     data->face_lst = tmp;
-    while (++i < 760)
+    while (++i < data->wnd_wd)
     {
         if (tmp->fix == 0)
         {

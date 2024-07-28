@@ -6,7 +6,9 @@ SRCS			= 	main.c \
 					ft_drop_rays.c \
 					ft_rendering.c \
 					ft_intersection.c \
-					ft_create_list.c
+					ft_create_list.c \
+					ft_get_im.c \
+					ft_mini_map.c
 
 ######################### object files ###############################
 
@@ -25,10 +27,10 @@ LIBS			= MLX42/libmlx42.a -lglfw3
 all				: $(NAME)
 
 o%				: %c cube.h
-	gcc -c $< -o $@
+	gcc -g -fsanitize=address $< -o $@
 
 $(NAME)			: $(OBJS)
-	gcc $(OBJS) $(LINK) -o $(NAME) $(LIBS) -Ofaster
+	gcc -g -fsanitize=address $(OBJS) $(LINK) -o $(NAME) $(LIBS) -Ofaster
 
 clean			:
 	rm -rf *o
