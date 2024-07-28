@@ -6,11 +6,9 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:22:54 by bramzil           #+#    #+#             */
-/*   Updated: 2024/07/28 11:59:18 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:38:19 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-# include "cube.h"
 
 # include "cube.h"
 
@@ -48,7 +46,7 @@ static double get_height(t_data *data, int i)
 
     adja = fabs(data->plr.x - data->array[i].x);
     oppo = fabs(data->plr.y - data->array[i].y);
-    result = ((100 * 100) / sqrt((oppo * oppo) + \
+    result = ((300 * 200) / sqrt((oppo * oppo) + \
         (adja * adja)));
     return (result);
 } 

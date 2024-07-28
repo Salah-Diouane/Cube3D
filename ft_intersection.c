@@ -18,7 +18,7 @@ static int  is_wall(t_data *data, t_point *point, int x_d, int y_d)
     grd_wd = data->grd_wd;
     if ((point->x < 0) || (point->y < 0) || \
         ((data->grd_wd * 10) < point->x) || \
-        ((data->grd_ht * 22) < point->y))
+        ((data->grd_ht * 10) < point->y))
         return (0);
     else if (map[(int)((point->y / grd_ht) - \
         (1 * (y_d < 0)))][(int)((point->x / \
@@ -39,7 +39,7 @@ static double hor_inter(t_data *data, t_point *inter, double angle)
     get_dir(angle, &x_dir, &y_dir);
     inter->y = (int)(data->plr.y / grd_ht) * grd_ht;
     while ((0 < inter->y) && (inter->y < \
-        (data->grd_ht * 22)))
+        (data->grd_ht * 10)))
     {
         if (((0 < y_dir) && (data->plr.y < inter->y)) || \
             ((y_dir < 0) && (inter->y < data->plr.y)))

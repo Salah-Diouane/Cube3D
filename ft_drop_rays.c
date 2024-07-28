@@ -1,5 +1,6 @@
 # include "cube.h"
 
+
 double  real_angle(double angle)
 {
     double      two_pi;
@@ -18,8 +19,8 @@ static int  steps(t_data *data, t_point *inter, t_point *incr)
     double       d_y;
     double       steps;
 
-    d_x = inter->x - data->plr.x;
-    d_y = inter->y - data->plr.y;
+    d_x = (inter->x - data->plr.x) / 8.0;
+    d_y = (inter->y - data->plr.y) / 8.0;
     steps = fabs(d_x);
     if (fabs(d_x) < fabs(d_y))
         steps = fabs(d_y);

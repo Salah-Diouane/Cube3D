@@ -114,9 +114,9 @@ int32_t *ft_get_img_w(mlx_image_t *img)
 
 void    ft_set_img(t_data  *data)
 {
-    data->texture_w = ft_get_img_w(data->img);
-    data->texture_n = ft_get_img_n(data->img);
-    data->texture_s = ft_get_img_s(data->img);
-    data->texture_e = ft_get_img_e(data->img);
+    data->texture_w = ft_get_img_w(data->img_w);
+    data->texture_n = ft_get_img_n(data->img_n);
+    data->texture_s = ft_get_img_s(data->img_s);
+    data->texture_e = ft_get_img_e(data->img_e);
 }
 

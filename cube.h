@@ -6,7 +6,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "MLX42/MLX42.h"
-// # include <mlx.h>
 # include <stdarg.h>
 
 typedef struct  s_point
@@ -37,8 +36,21 @@ typedef struct  s_plr
 
 typedef struct  s_data
 {
-    mlx_texture_t   *wall;
-	mlx_image_t		*img;
+    mlx_texture_t   *wall_e;
+    mlx_texture_t   *wall_w;
+    mlx_texture_t   *wall_s;
+    mlx_texture_t   *wall_n;
+
+    mlx_texture_t   *ignwan;
+	mlx_image_t		*ignwan_img;
+    mlx_texture_t   *akal;
+	mlx_image_t		*akal_img;
+
+	mlx_image_t		*img_n;
+	mlx_image_t		*img_s;
+	mlx_image_t		*img_w;
+	mlx_image_t		*img_e;
+
 	int32_t			*texture_n;
 	int32_t			*texture_s;
 	int32_t			*texture_w;
@@ -51,7 +63,6 @@ typedef struct  s_data
     t_plr           plr;
     mlx_t           *mlx;
     t_point         *array;
-    // t_texture       texture;
     t_face          *face_lst;
     mlx_image_t     *rays_img;
     mlx_image_t     *wall_img;
@@ -61,16 +72,17 @@ typedef struct  s_data
 
 void        ft_update(t_data *data);
 double      real_angle(double angle);
+int			ft_mini_map(t_data *data);
 void		ft_set_img(t_data  *data);
 void        ft_cast_rays(t_data *data);
 void        ft_render_wall(t_data *data);
 void        ft_create_list(t_data *data);
-int			ft_mini_map(t_data *data);
-char        **ft_split(char const *s, char c);
 int32_t     *ft_get_img_n(mlx_image_t *img);
 int32_t     *ft_get_img_s(mlx_image_t *img);
 int32_t     *ft_get_img_w(mlx_image_t *img);
 int32_t		*ft_get_img_e(mlx_image_t *img);
+mlx_keyfunc ft_move_plr(mlx_key_data_t key, t_data *data);
+char        **ft_split(char const *s, char c);
 double      ft_get_inter(t_data *data, t_point *inter, double angle);
 
 # endif
