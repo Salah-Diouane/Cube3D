@@ -8,6 +8,10 @@
 # include "MLX42/MLX42.h"
 # include <stdarg.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1337
+# endif
+
 typedef struct  s_point
 {
 	double         x;
