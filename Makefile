@@ -8,7 +8,13 @@ SRCS			= 	main.c \
 					ft_intersection.c \
 					ft_create_list.c \
 					ft_get_im.c \
-					ft_mini_map.c
+					ft_mini_map.c \
+					parsing/ft_read_map.c \
+					parsing/ft_check_textures.c \
+					parsing/ft_check_colors.c \
+					parsing/ft_get_next_line.c \
+					parsing/ft_get_next_line_utils.c \
+					parsing/ft_extract_map.c
 
 ######################### object files ###############################
 
@@ -27,10 +33,10 @@ LIBS			= MLX42/libmlx42.a -lglfw3
 all				: $(NAME)
 
 o%				: %c cube.h
-	gcc -g -fsanitize=address $< -o $@
+	cc -g -fsanitize=address $< -o $@
 
 $(NAME)			: $(OBJS)
-	gcc -g -fsanitize=address $(OBJS) $(LINK) -o $(NAME) $(LIBS) -Ofaster
+	cc -g -fsanitize=address $(OBJS) $(LINK) -o $(NAME) $(LIBS) -Ofaster
 
 clean			:
 	rm -rf *o

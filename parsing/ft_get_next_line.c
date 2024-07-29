@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:08:36 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/07/29 08:08:51 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/07/29 08:14:17 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_read_line(char *s)
 	return (line);
 }
 
-char	*move_string(char *s)
+char	*ft_move_string(char *s)
 {
 	char	*new;
 	int		i;
@@ -78,7 +78,7 @@ char	*reader(int fd, char *reserve)
 	line = (char *)malloc((size_t)BUFFER_SIZE + 1);
 	if (!line)
 		return (NULL);
-	while (!(find(reserve, '\n')) && rd != 0)
+	while (!(ft_find(reserve, '\n')) && rd != 0)
 	{
 		rd = read(fd, line, BUFFER_SIZE);
 		if (rd < 0)
@@ -108,6 +108,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = ft_read_line(reserve);
-	reserve = move_string(reserve);
+	reserve = ft_move_string(reserve);
 	return (line);
 }

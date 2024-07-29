@@ -5,8 +5,10 @@
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include "MLX42/MLX42.h"
 # include <stdarg.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1337
@@ -37,6 +39,20 @@ typedef struct  s_plr
 	double          x;
 	double          y;
 }               t_plr;
+
+typedef struct  s_text
+{
+	char		*identif;
+	char		*chem;
+	struct s_text   *next;
+}               t_text;
+
+typedef struct  s_color
+{
+	char		*identif;
+	char		*value;
+	struct s_color   *next;
+}               t_color;
 
 typedef struct  s_data
 {
@@ -71,10 +87,41 @@ typedef struct  s_data
     mlx_image_t     *rays_img;
     mlx_image_t     *wall_img;
     mlx_image_t     *ddd__img;
+
+	t_text			*text;
+	t_color			*colors;
 }               t_data;
 
+// Parsing :
+int		ft_strlen(char *s);
+char	*ft_strdup(char *s1);
+char	*get_next_line(int fd);
+char	*ft_read_line(char *s);
+int		ft_find(char *s, char c);
+char	*ft_move_string(char *s);
+char	**ft_read_map(char **arv);
+char	**ft_read_map(char **arv);
+int		ft_is_identifier(char *line);
+int		ft_count_map_line(char **map);
+char	*reader(int fd, char *reserve);
+int		ft_count_text_size(t_text *head);
+int		ft_count_color_size(t_color *head);
+int		ft_get_map(t_data *data, char **map);
+int		ft_get_map(t_data *data, char **map);
+char	*ft_strjoin(char *start, char *buff);
+int 	ft_get_input(t_data *data, char **arv);
+int		ft_get_colors(t_data *data, char **map);
+int		ft_get_texture(t_data *data, char **map);
+int		ft_get_texture(t_data *data, char **map);
+char	*ft_join(char *dest, char *s1, char *s2);
+t_color *ft_new_color(char *identif, char *value);
+t_text	*ft_new_texture(char *identif, char *chem);
+t_text	*ft_new_texture(char *identif, char *chem);
+void	ft_add_texture(t_text **head, t_text *new_node);
+void	ft_add_texture(t_text **head, t_text *new_node);
+void	ft_add_color(t_color **head, t_color *new_node);
 
-void        ft_update(t_data *data);
+// Execution :
 double      real_angle(double angle);
 int			ft_mini_map(t_data *data);
 void		ft_set_img(t_data  *data);
@@ -85,8 +132,8 @@ int32_t     *ft_get_img_n(mlx_image_t *img);
 int32_t     *ft_get_img_s(mlx_image_t *img);
 int32_t     *ft_get_img_w(mlx_image_t *img);
 int32_t		*ft_get_img_e(mlx_image_t *img);
-mlx_keyfunc ft_move_plr(mlx_key_data_t key, t_data *data);
 char        **ft_split(char const *s, char c);
+mlx_keyfunc ft_move_plr(mlx_key_data_t key, t_data *data);
 double      ft_get_inter(t_data *data, t_point *inter, double angle);
 
 # endif

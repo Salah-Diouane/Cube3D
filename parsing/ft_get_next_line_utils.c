@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:09:26 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/07/29 08:09:41 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/07/29 08:13:26 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-int	find(char *s, char c)
+int	ft_find(char *s, char c)
 {
 	if (!s)
 		return (0);
