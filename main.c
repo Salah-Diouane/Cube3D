@@ -74,10 +74,11 @@ int ft_create_window(t_data  *data)
 int main(int arc, char **arv)
 {
 	t_data  data;
-	char    *map = "1111111111 1000000001 1000010101 \
-					1100000001 1010110101 1010000001 \
-					1000000011 1010110001 1000000001 \
-					1111111111";
+    char    *map = "1111111111 1000000001 1000010101 \
+                    1100000001 1010110101 1010000001 \
+                    1000000011 1010110001 1000000001 \
+                    1111111111";
+
 
 	data.plr.d = 0;
 	data.plr.x = 140;
@@ -87,11 +88,11 @@ int main(int arc, char **arv)
 	data.wnd_ht = 700;
 	data.wnd_wd = 1060;
 
-	// data.map = ft_split(map, ' ');
-	if (ft_get_input(&data, arv) != 0)
-	    return (printf("invalid map !!!\n"));
-	if (ft_check_map(&data) != 0)
-	    return (printf("invalid map !!!\n"));
+	data.map = ft_split(map, ' ');
+	// if (ft_get_input(&data, arv) != 0)
+	//     return (printf("invalid map !!!\n"));
+	// if (ft_check_map(&data) != 0)
+	//     return (printf("invalid map !!!\n"));
 
 	// printf("----> Textures : \n");
 	// while (data.text)
@@ -116,27 +117,27 @@ int main(int arc, char **arv)
 	//     i++;
 	// }
 
-	// if (!data.map)
-	//     return (printf("ft_split fails!!\n"));
-	// data.array = (t_point *)malloc(sizeof(t_point) * data.wnd_wd);
-	// if (!data.array)
-	//     return (printf("arr allocation!!\n"));
-	// if (ft_create_window(&data))
-	//     return (-1);
-	// data.wall_e =  mlx_load_png("textures/nej.png");
-	// data.img_e = mlx_texture_to_image(data.mlx, data.wall_e);
+	if (!data.map)
+	    return (printf("ft_split fails!!\n"));
+	data.array = (t_point *)malloc(sizeof(t_point) * data.wnd_wd);
+	if (!data.array)
+	    return (printf("arr allocation!!\n"));
+	if (ft_create_window(&data))
+	    return (-1);
+	data.wall_e =  mlx_load_png("textures/nej.png");
+	data.img_e = mlx_texture_to_image(data.mlx, data.wall_e);
 
-	// data.wall_n =  mlx_load_png("textures/tam.png");
-	// data.img_n = mlx_texture_to_image(data.mlx, data.wall_n);
+	data.wall_n =  mlx_load_png("textures/tam.png");
+	data.img_n = mlx_texture_to_image(data.mlx, data.wall_n);
 
-	// data.wall_s =  mlx_load_png("textures/cer.png");
-	// data.img_s = mlx_texture_to_image(data.mlx, data.wall_s);
+	data.wall_s =  mlx_load_png("textures/cer.png");
+	data.img_s = mlx_texture_to_image(data.mlx, data.wall_s);
 
-	// data.wall_w =  mlx_load_png("textures/pp.png");
-	// data.img_w = mlx_texture_to_image(data.mlx, data.wall_w);
+	data.wall_w =  mlx_load_png("textures/pp.png");
+	data.img_w = mlx_texture_to_image(data.mlx, data.wall_w);
 
-	// ft_set_img(&data);
-	// mlx_key_hook(data.mlx, ft_move_plr, &data);
-	// ft_mini_map(&data);
-	// mlx_loop(data.mlx);
+	ft_set_img(&data);
+	mlx_key_hook(data.mlx, ft_move_plr, &data);
+	ft_mini_map(&data);
+	mlx_loop(data.mlx);
 }    

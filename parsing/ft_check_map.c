@@ -6,29 +6,11 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 08:45:50 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/07/31 15:39:05 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:24:56 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
-#include <ctype.h>
-
-int just_space(char *line)
-{
-	int i = 0;
-	while (line[i])
-	{
-		if (line[i] == ' ' || line[i] == '\t' || line[i] == '\n')
-		{
-			i++;
-		}
-		else
-		{
-			return (-1);
-		}
-	}
-	return (0);
-}
 
 int ft_check_content(char *line)
 {
@@ -129,42 +111,6 @@ int is_zero_surrounded_by_ones(char **map, int rows, int cols)
 	return 1;
 }
 
-char *trim_whitespace(char *str)
-{
-	char *end;
-	char *trimmed_str;
-
-	// Copy the original string to avoid modifying the input string directly
-	if (just_space(str) != -1)
-		return (str);
-	trimmed_str = strdup(str);
-	if (trimmed_str == NULL)
-		return NULL;
-
-	// Trim leading space
-	while (isspace((unsigned char)*trimmed_str))
-		trimmed_str++;
-
-	if (*trimmed_str == 0)
-	{ // All spaces?
-		free(trimmed_str);
-		return strdup(""); // Return an empty string
-	}
-
-	// Trim trailing space
-	end = trimmed_str + strlen(trimmed_str) - 1;
-	while (end > trimmed_str && isspace((unsigned char)*end))
-		end--;
-
-	// Write new null terminator character
-	end[1] = '\0';
-
-	// Duplicate the trimmed string to return it, freeing the intermediate copy
-	char *result = strdup(trimmed_str);
-	free(trimmed_str - (trimmed_str - str)); // Free the original duplicated string
-	return result;
-}
-
 int is_all_ones(const char *str)
 {
 	while (*str)
@@ -191,7 +137,45 @@ int ft_check_elements(char *line)
 	return (1);
 }
 
-int ft_check_map(t_data *data)
+int is_space(unsigned char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+}
+
+int just_space(char *str)
+{
+	while (*str)
+	{
+		if (!is_space((unsigned char)*str))
+			return -1;
+		str++;
+	}
+	return 0;
+}
+
+char *trim_whitespace(char *str)
+{
+	char *start;
+	char *end;
+	char *trimmed_str;
+
+	if (just_space(str) != -1)
+		return (ft_strdup(""));
+	start = str;
+	while (is_space((unsigned char)*start))
+		start++;
+	if (*start == 0)
+		return (ft_strdup(""));
+	end = start + strlen(start) - 1;
+	while (end > start && is_space((unsigned char)*end))
+		end--;
+	end[1] = '\0';
+	trimmed_str = ft_strdup(start);
+	return (trimmed_str);
+}
+
+
+int ft_first_check_map(t_data *data)
 {
 	char **cp_map;
 	int i = 0, j = 0;
@@ -199,7 +183,7 @@ int ft_check_map(t_data *data)
 	int rows = ft_get_rows(data->map);
 	int cols = ft_get_cols(data->map);
 
-	cp_map = (char **)malloc(sizeof(char *) * (find_longest_line(data->map) + 1));
+	cp_map = (char **)malloc(sizeof(char *) * (rows + 1));
 	if (!cp_map)
 		return (printf("mall err\n"));
 
@@ -210,37 +194,39 @@ int ft_check_map(t_data *data)
 		else
 			break;
 	}
-
 	while (data->map[i])
 	{
 		cp_map[j] = trim_whitespace(data->map[i]);
 		if (cp_map[j] == NULL)
 		{
-			for (int k = 0; k < j; k++)
-				free(cp_map[k]);
-			free(cp_map);
+			// for (int k = 0; k < j; k++)
+			// 	free(cp_map[k]);
+			// free(cp_map);
 			return (printf("Memory allocation error.\n"));
 		}
 		j++;
 		i++;
 	}
 	cp_map[j] = NULL;
-
 	if (!is_all_ones(cp_map[0]) || !is_all_ones(cp_map[j - 1]))
 	{
-		for (int k = 0; k < j; k++)
-			free(cp_map[k]);
-		free(cp_map);
+		// for (int k = 0; k < j; k++)
+		// 	free(cp_map[k]);
+		// free(cp_map);
 		return (printf("The first or last line is not all ones.\n"));
 	}
-
 	i = 0;
 	while (cp_map[i] && cp_map[i][0])
 	{
 		if (cp_map[i][0] == '1' && cp_map[i][strlen(cp_map[i]) - 1] == '1')
 			i++;
 		else
+		{
+			// for (int k = 0; k < j; k++)
+			// 	free(cp_map[k]);
+			// free(cp_map);
 			return (printf("Map is not closed by walls. in |%s| \t %d \n", cp_map[i], i));
+		}
 	}
 	i = 0;
 	while (cp_map[i] != NULL)
@@ -248,20 +234,16 @@ int ft_check_map(t_data *data)
 		if (ft_check_elements(cp_map[i]))
 			i++;
 		else
+		{
+			// for (int k = 0; k < j; k++)
+			// 	free(cp_map[k]);
+			// free(cp_map);
 			return (printf("error \n"));
+		}
 	}
-	for (int k = 0; k < j; k++)
-		free(cp_map[k]);
-	free(cp_map);
-	return 0;
-}
-
-int is_invalid_zero_position(char **map, int current_line, int col)
-{
-	if (col < 0 || col >= strlen(map[current_line]))
-		return 1;
-	if (map[current_line][col] == ' ' || map[current_line][col] == '\t' || map[current_line][col] == '\0')
-		return 1;
+	// for (int k = 0; k < j; k++)
+	// 	free(cp_map[k]);
+	// free(cp_map);
 	return 0;
 }
 
@@ -273,7 +255,7 @@ int ft_second_check_map(t_data *data)
 	int rows = ft_get_rows(data->map);
 	int cols = ft_get_cols(data->map);
 
-	cp_map = (char **)malloc(sizeof(char *) * (find_longest_line(data->map) + 1));
+	cp_map = (char **)malloc(sizeof(char *) * (rows + 1));
 	if (!cp_map)
 		return (printf("mall err\n"));
 
@@ -289,8 +271,6 @@ int ft_second_check_map(t_data *data)
 		cp_map[j] = data->map[i];
 		if (cp_map[j] == NULL)
 		{
-			for (int k = 0; k < j; k++)
-				free(cp_map[k]);
 			free(cp_map);
 			return (printf("Memory allocation error.\n"));
 		}
@@ -298,24 +278,47 @@ int ft_second_check_map(t_data *data)
 		i++;
 	}
 	cp_map[j] = NULL;
+
 	i = 0;
 	while (cp_map[i] != NULL)
 	{
-		printf("cp_map[%d] : %s\n", i, cp_map[i]);
 		j = 0;
 		while (cp_map[i][j] != '\0')
 		{
 			if (cp_map[i][j] == '0')
 			{
-				
+				if (i > 0 && (cp_map[i - 1][j] == ' ' || cp_map[i - 1][j] == '\t' || cp_map[i - 1][j] == '\0'))
+				{
+					free(cp_map);
+					return (printf("invalid_zero_position at %d, %d (above)\n", i, j));
+				}
+				if (cp_map[i + 1] != NULL && (cp_map[i + 1][j] == ' ' || cp_map[i + 1][j] == '\t' || cp_map[i + 1][j] == '\0'))
+				{
+					free(cp_map);
+					return (printf("invalid_zero_position at %d, %d (below)\n", i, j));
+				}
+				if (j > 0 && (cp_map[i][j - 1] == ' ' || cp_map[i][j - 1] == '\t' || cp_map[i][j - 1] == '\0'))
+				{
+					free(cp_map);
+					return (printf("invalid_zero_position at %d, %d (left)\n", i, j));
+				}
+				if (cp_map[i][j + 1] == ' ' || cp_map[i][j + 1] == '\t' || cp_map[i][j + 1] == '\0')
+				{
+					free(cp_map);
+					return (printf("invalid_zero_position at %d, %d (right)\n", i, j));
+				}
 			}
 			j++;
 		}
 		i++;
 	}
-	for (int k = 0; k < j; k++)
-		free(cp_map[k]);
-	cp_map = NULL;
 	free(cp_map);
+	return 0;
+}
+
+int ft_check_map(t_data *data)
+{
+	if (ft_first_check_map(data) != 0 || ft_second_check_map(data) != 0)
+		return printf("invalid map !!!!!");
 	return 0;
 }
