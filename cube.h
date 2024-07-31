@@ -14,6 +14,17 @@
 #  define BUFFER_SIZE 1337
 # endif
 
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1337
+# endif
+
+# define END '\0'
+# define NLN '\n'
+
 typedef struct  s_point
 {
 	double         x;
@@ -27,7 +38,7 @@ typedef struct  s_face
 	int             fix;
 	int             rays;
 	double          x_ref;
-	double          y_ref;
+	double          y_ref;  
 	double          height_1;
 	double          height_2;
 	struct s_face   *next;
@@ -35,6 +46,8 @@ typedef struct  s_face
 
 typedef struct  s_plr
 {
+	// N = 90 s = 270  w = 180  e 360
+	// x =	i  * 64, y = j * 64
 	double          d;
 	double          x;
 	double          y;
@@ -53,6 +66,8 @@ typedef struct  s_color
 	char		*value;
 	struct s_color   *next;
 }               t_color;
+
+
 
 typedef struct  s_data
 {
@@ -120,6 +135,7 @@ t_text	*ft_new_texture(char *identif, char *chem);
 void	ft_add_texture(t_text **head, t_text *new_node);
 void	ft_add_texture(t_text **head, t_text *new_node);
 void	ft_add_color(t_color **head, t_color *new_node);
+int ft_check_map(t_data *data);
 
 // Execution :
 double      real_angle(double angle);

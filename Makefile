@@ -14,7 +14,9 @@ SRCS			= 	main.c \
 					parsing/ft_check_colors.c \
 					parsing/ft_get_next_line.c \
 					parsing/ft_get_next_line_utils.c \
-					parsing/ft_extract_map.c
+					parsing/ft_extract_map.c \
+					parsing/ft_check_map.c \
+
 
 ######################### object files ###############################
 
