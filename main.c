@@ -185,7 +185,7 @@ int main(int arc, char **arv)
 	i = 0;
 	while (data.map[i])
 	{
-		printf("%s\n", data.map[i]);
+		printf("%s\n", data.map[i]); 
 		i++;
 	}
 	int longest_length = find_longest_line_length(data.map);

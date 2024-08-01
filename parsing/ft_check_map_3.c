@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:28:50 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/01 14:26:17 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:29:58 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int ft_check_content(char *line)
 
 int ft_get_rows(char **map)
 {
-	int rows = 0;
+	int rows;
+	
+	rows = 0;
 	while (map[rows])
 		rows++;
-	return rows;
+	return (rows);
 }
 
 int ft_get_cols(char **map)

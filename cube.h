@@ -152,7 +152,7 @@ void	ft_add_texture(t_text **head, t_text *new_node);
 void	ft_add_color(t_color **head, t_color *new_node);
 int		is_closed_by_walls(char **map, int rows, int cols);
 int		populate_cp_map(t_data *data, char **cp_map, int *i, int *j);
-int		initialize_cp_map(t_data *data, char ***cp_map, int *rows, int *cols);
+int		initialize_cp_map(t_data *data, char ***cp_map, int *rows);
 int		populate_cp_map_without_trimming(t_data *data, char **cp_map, int *i, int *j);
 
 

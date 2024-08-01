@@ -6,16 +6,15 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:15:30 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/01 14:27:17 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:27:57 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int initialize_cp_map(t_data *data, char ***cp_map, int *rows, int *cols)
+int initialize_cp_map(t_data *data, char ***cp_map, int *rows)
 {
 	*rows = ft_get_rows(data->map);
-	*cols = ft_get_cols(data->map);
 
 	*cp_map = (char **)malloc(sizeof(char *) * (*rows + 1));
 	if (!*cp_map)
@@ -153,9 +152,9 @@ int ft_first_check_map(t_data *data)
 {
 	char **cp_map;
 	int i = 0, j = 0;
-	int rows, cols;
+	int rows;
 
-	if (initialize_cp_map(data, &cp_map, &rows, &cols) != 0)
+	if (initialize_cp_map(data, &cp_map, &rows) != 0)
 		return (-1);
 	if (populate_cp_map(data, cp_map, &i, &j) != 0)
 		return (-1);
