@@ -110,21 +110,35 @@ typedef struct  s_data
 // Parsing :
 int		ft_strlen(char *s);
 char	*ft_strdup(char *s1);
+int		just_space(char *str);
 char	*get_next_line(int fd);
 char	*ft_read_line(char *s);
+int		ft_get_cols(char **map);
+int		ft_get_rows(char **map);
 int		ft_find(char *s, char c);
 char	*ft_move_string(char *s);
+int		is_space(unsigned char c);
 char	**ft_read_map(char **arv);
 char	**ft_read_map(char **arv);
+int		ft_check_map(t_data *data);
+int		ft_check_map(t_data *data);
+char	*trim_whitespace(char *str);
+int		is_all_ones(const char *str);
 int		ft_is_identifier(char *line);
+int		ft_check_content(char *line);
+int		find_longest_line(char **map);
 int		ft_count_map_line(char **map);
+int		ft_check_elements(char *line);
 char	*reader(int fd, char *reserve);
+int		ft_first_check_map(t_data *data);
 int		ft_count_text_size(t_text *head);
+int		ft_second_check_map(t_data *data);
 int		ft_count_color_size(t_color *head);
-int		ft_get_map(t_data *data, char **map);
+int		ft_check_position_of_zero(char **cp_map, int *i, int *j);
 int		ft_get_map(t_data *data, char **map);
 char	*ft_strjoin(char *start, char *buff);
 int 	ft_get_input(t_data *data, char **arv);
+int		check_walls_and_elements(t_data *data, char **cp_map);
 int		ft_get_colors(t_data *data, char **map);
 int		ft_get_texture(t_data *data, char **map);
 int		ft_get_texture(t_data *data, char **map);
@@ -132,10 +146,15 @@ char	*ft_join(char *dest, char *s1, char *s2);
 t_color *ft_new_color(char *identif, char *value);
 t_text	*ft_new_texture(char *identif, char *chem);
 t_text	*ft_new_texture(char *identif, char *chem);
+int		check_first_last_line(char **cp_map, int j);
 void	ft_add_texture(t_text **head, t_text *new_node);
 void	ft_add_texture(t_text **head, t_text *new_node);
 void	ft_add_color(t_color **head, t_color *new_node);
-int ft_check_map(t_data *data);
+int		is_closed_by_walls(char **map, int rows, int cols);
+int		populate_cp_map(t_data *data, char **cp_map, int *i, int *j);
+int		initialize_cp_map(t_data *data, char ***cp_map, int *rows, int *cols);
+int		populate_cp_map_without_trimming(t_data *data, char **cp_map, int *i, int *j);
+
 
 // Execution :
 double      real_angle(double angle);
