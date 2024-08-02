@@ -6,37 +6,11 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 08:45:50 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/02 08:30:10 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:46:19 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
-
-int populate_cp_map(t_data *data, char **cp_map, int *i, int *j)
-{
-	while (data->map[*i])
-	{
-		if (just_space(data->map[*i]) != -1)
-			(*i)++;
-		else
-			break;
-	}
-	while (data->map[*i])
-	{
-		cp_map[*j] = trim_whitespace(data->map[*i]);
-		if (cp_map[*j] == NULL)
-		{
-			for (int k = 0; k < *j; k++)
-				free(cp_map[k]);
-			free(cp_map);
-			return (printf("Memory allocation error.\n"));
-		}
-		(*j)++;
-		(*i)++;
-	}
-	cp_map[*j] = NULL;
-	return (0);
-}
 
 int populate_cp_map_without_trimming(t_data *data, char **cp_map,
 	int *i, int *j)
@@ -86,7 +60,7 @@ int ft_second_check_map(t_data *data)
 	int cols;
 
 	(1) && (i = 0, j = 0, rows = ft_get_rows(data->map),
-		cols = ft_strlen(data->map[0]));
+		cols = ft_get_cols(data->map));
 	if (populate_cp_map_without_trimming(data, cp_map, &i, &j) != 0)
 		return (-1);
 	(1) && (i = 0, cp_map[j] = NULL);

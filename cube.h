@@ -64,9 +64,6 @@ typedef struct  s_color
 {
 	char		*identif;
 	char		*value;
-	int			r;
-	int			g;
-	int			b;
 	struct s_color   *next;
 }               t_color;
 
@@ -112,14 +109,11 @@ typedef struct  s_data
 
 // Parsing :
 int		ft_strlen(char *s);
-int is_space(unsigned char c);
-int check_walls(char **cp_map);
-int check_elements(char **cp_map);
-double ft_get_direction(char **cp_map, int *i, int *j);
 char	*ft_strdup(char *s1);
 int		just_space(char *str);
 char	*get_next_line(int fd);
 char	*ft_read_line(char *s);
+int		ft_get_cols(char **map);
 int		ft_get_rows(char **map);
 int		ft_find(char *s, char c);
 char	*ft_move_string(char *s);
