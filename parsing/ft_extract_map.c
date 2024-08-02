@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:35:28 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/01 13:45:06 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:06:55 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int ft_count_map_line(char **map)
 	return (map_lines);
 }
 
-
 int just_one_zero(char *str)
 {
 	int i;
@@ -79,6 +78,7 @@ int ft_get_map(t_data *data, char **map)
 {
 	int i;
 	int j;
+	
 
 	(1) && (i = 0, j = 0);
 	data->map = (char **)malloc((ft_count_map_line(map) + 1) * sizeof(char *));

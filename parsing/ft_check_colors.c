@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:37:07 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/07/29 18:33:13 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:13:24 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void ft_add_color(t_color **head, t_color *new_node)
         return;
     }
     current = *head;
-    while (current->next)
+    while (current && current->next)
         current = current->next;
     current->next = new_node;
 }
@@ -57,6 +57,27 @@ int ft_count_color_size(t_color *head)
     return (count);
 }
 
+// int ft_set_rgb_colors(t_data    *data)
+// {
+//     char    **colors;
+//     int     i;
+
+//     i = 0;
+//     colors = ft_split(data->colors->value, ',');
+//     if (!colors)
+//         return (-1);
+//     while (colors[i])
+//     {
+//         if (atoi(colors[i]) < 0 || atoi(colors[i]) > 255)
+//             return (-1);
+//         i++;
+//     }
+//     data->colors->r = atoi(colors[0]);
+//     data->colors->g = atoi(colors[1]);
+//     data->colors->b = atoi(colors[2]);
+//     return (0);
+// }
+
 int ft_get_colors(t_data *data, char **map)
 {
     t_color *color;
@@ -74,7 +95,10 @@ int ft_get_colors(t_data *data, char **map)
 				return (printf("COLORS : error more than onr args in texture\n"));
 			color = ft_new_color(tmp[0], tmp[1]);
 			if (color)
-				ft_add_color(&data->colors, color);
+            {
+                printf("hahahahahahaha\n");
+                ft_add_color(&data->colors, color);
+            }
 			else
 				return (printf("Memory allocation failed\n"));
             free(tmp[0]);
@@ -84,5 +108,7 @@ int ft_get_colors(t_data *data, char **map)
 
         i++;
     }
+    // if (ft_set_rgb_colors(data) != 0)
+    //     return (printf("invalid colors\n"));
     return (0);
 }

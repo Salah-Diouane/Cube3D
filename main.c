@@ -137,9 +137,7 @@ char **create_new_map(char **map, int longest_length, int rows)
 		if (!new_map[j])
 		{
 			for (int k = 0; k < j; k++)
-			{
 				free(new_map[k]);
-			}
 			free(new_map);
 			return NULL;
 		}
@@ -177,12 +175,11 @@ int main(int arc, char **arv)
 	// data.map = ft_split(map, ' ');
 	if (ft_get_input(&data, arv) != 0)
 		return (printf("invalid map !!!\n"));
-	if (ft_check_map(&data) != 0)
-		return (printf("invalid map !!!\n"));
+	// if (ft_check_map(&data) != 0)
+	// 	return (printf("invalid map !!!\n"));
 
 	int i = 0;
 	printf("BEFORE : \n");
-	i = 0;
 	while (data.map[i])
 	{
 		printf("%s\n", data.map[i]); 

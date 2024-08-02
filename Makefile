@@ -19,12 +19,11 @@ SRCS			= 	main.c \
 					parsing/ft_check_map_2.c \
 					parsing/ft_check_map_3.c \
 					parsing/ft_check_map_4.c \
-					parsing/ft_check_map_5.c 
-
+					# parsing/ft_check_map_5.c 
 
 ######################### object files ###############################
 
-OBJS			= $(SRCS:%c=%o)
+OBJS			= $(SRCS:.c=.o)
 
 ########################### variables #################################
 
@@ -38,14 +37,14 @@ LIBS			= MLX42/libmlx42.a -lglfw3
 
 all				: $(NAME)
 
-o%				: %c cube.h
-	cc -g -fsanitize=address $< -o $@
+%.o				: %.c cube.h
+	cc -g -fsanitize=address -c $< -o $@
 
 $(NAME)			: $(OBJS)
 	cc -g -fsanitize=address $(OBJS) $(LINK) -o $(NAME) $(LIBS) -Ofaster
 
 clean			:
-	rm -rf *o
+	rm -rf $(OBJS)
 
 fclean			: clean
 	rm -rf $(NAME)

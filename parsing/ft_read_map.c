@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:07:16 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/07/31 10:10:55 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:01:13 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,26 @@ int	ft_check_len_txt(t_text	*color)
 
 // mli kan7t NO SO EA WE wst map makhashach doz
 
+
+int is_texture_or_color_line(char *line)
+{
+    if (strncmp(line, "NO ", 3) == 0 || strncmp(line, "SO ", 3) == 0 ||
+        strncmp(line, "WE ", 3) == 0 || strncmp(line, "EA ", 3) == 0 ||
+        strncmp(line, "F ", 2) == 0 || strncmp(line, "C ", 2) == 0)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 int is_map_line(char *line)
 {
     while (*line)
     {
-        if (*line != '1' && *line != '0' && *line != ' ' && *line != '\t'
-			&& *line != 'P' && *line != 'N')
-            return (0);
+        if (*line != '1' && *line != '0' && *line != ' ' && *line != '\t')
+        {
+            return 0;
+        }
         line++;
     }
     return 1;
@@ -62,13 +75,14 @@ int validate_map_position(char **map)
 
     while (map[i])
     {
-        if (is_map_line(map[i]))
-            map_started = 1;
-        else if (map_started && map[i][0] != '\0' && !is_map_line(map[i]))
-            return (-1);
         i++;
     }
-    return (0);
+
+    // Check if map has started
+    if (!map_started)
+        return -1;  // No map lines found
+
+    return 0; // Map is at the end
 }
 
 int ft_get_input(t_data *data, char **arv)
@@ -79,8 +93,8 @@ int ft_get_input(t_data *data, char **arv)
 	int i = 0;
 	if (!map)
 		return (printf("invalid map !!!\n"));
-	if (validate_map_position(map) != 0)
-		return (printf("ft_check_order fails!!\n"));
+	// if (validate_map_position(map) != 0)
+	// 	return (printf("ft_check_order fails!!\n"));
 	if (ft_get_map(data, map) != 0)
 		return (printf("ft_get_map fails!!\n"));
 	if (ft_get_texture(data, map) != 0 || ft_count_text_size(data->text) != 4
