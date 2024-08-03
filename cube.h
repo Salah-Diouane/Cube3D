@@ -63,7 +63,9 @@ typedef struct  s_text
 typedef struct  s_color
 {
 	char		*identif;
-	char		*value;
+	int			r;
+	int			g;
+	int			b;
 	struct s_color   *next;
 }               t_color;
 
@@ -85,6 +87,8 @@ typedef struct  s_data
 	mlx_image_t		*img_s;
 	mlx_image_t		*img_w;
 	mlx_image_t		*img_e;
+
+
 
 	int32_t			*texture_n;
 	int32_t			*texture_s;
@@ -143,7 +147,7 @@ int		ft_get_colors(t_data *data, char **map);
 int		ft_get_texture(t_data *data, char **map);
 int		ft_get_texture(t_data *data, char **map);
 char	*ft_join(char *dest, char *s1, char *s2);
-t_color *ft_new_color(char *identif, char *value);
+t_color *ft_new_color(char *identif, int r, int g, int b);
 t_text	*ft_new_texture(char *identif, char *chem);
 t_text	*ft_new_texture(char *identif, char *chem);
 int		check_first_last_line(char **cp_map, int j);

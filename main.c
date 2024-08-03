@@ -41,32 +41,32 @@ void ft_fill_img(t_data *data, mlx_image_t *img)
 				   (data->wall_img->height / 2));
 }
 
-int ft_create_window(t_data *data)
-{
-	if (!(data->mlx = mlx_init(data->wnd_wd, data->wnd_ht, "cube", 0)))
-		return (printf("data->mlx fails!!\n"));
-	if (!(data->wall_img = mlx_new_image(data->mlx, 120, 120)))
-		return (printf("data->wall_img fails!!\n"));
-	if (!(data->rays_img = mlx_new_image(data->mlx, 120, 120)))
-		return (printf("data->rays_img fails!!\n"));
-	if (!(data->ignwan = mlx_load_png("textures/ignwan.png")))
-		return (printf("data->ignwan fails!!\n"));
-	if (!(data->ignwan_img = mlx_texture_to_image(data->mlx, data->ignwan)))
-		return (printf("data->ignwan_img fails!!\n"));
-	if (!(data->ddd__img = mlx_new_image(data->mlx,
-										 data->wnd_wd, data->wnd_ht)))
-		return (printf("data->ddd__img fails!!\n"));
-	if (mlx_image_to_window(data->mlx, data->ignwan_img, 0, 0))
-		return (printf("data->ddd__img fails!!\n"));
-	if (mlx_image_to_window(data->mlx, data->ddd__img, 0, 0))
-		return (printf("data->ddd__img fails!!\n"));
-	if (mlx_image_to_window(data->mlx, data->wall_img, 2, 2))
-		return (printf("data->wall__img fails!!\n"));
-	if (mlx_image_to_window(data->mlx, data->rays_img, 0, 0))
-		return (printf("data.rays_img fails!!\n"));
-	ft_fill_img(data, data->wall_img);
-	return (0);
-}
+// int ft_create_window(t_data *data)
+// {
+// 	if (!(data->mlx = mlx_init(data->wnd_wd, data->wnd_ht, "cube", 0)))
+// 		return (printf("data->mlx fails!!\n"));
+// 	if (!(data->wall_img = mlx_new_image(data->mlx, 120, 120)))
+// 		return (printf("data->wall_img fails!!\n"));
+// 	if (!(data->rays_img = mlx_new_image(data->mlx, 120, 120)))
+// 		return (printf("data->rays_img fails!!\n"));
+// 	if (!(data->ignwan = mlx_load_png("textures/ignwan.png")))
+// 		return (printf("data->ignwan fails!!\n"));
+// 	if (!(data->ignwan_img = mlx_texture_to_image(data->mlx, data->ignwan)))
+// 		return (printf("data->ignwan_img fails!!\n"));
+// 	if (!(data->ddd__img = mlx_new_image(data->mlx,
+// 										 data->wnd_wd, data->wnd_ht)))
+// 		return (printf("data->ddd__img fails!!\n"));
+// 	if (mlx_image_to_window(data->mlx, data->ignwan_img, 0, 0))
+// 		return (printf("data->ddd__img fails!!\n"));
+// 	if (mlx_image_to_window(data->mlx, data->ddd__img, 0, 0))
+// 		return (printf("data->ddd__img fails!!\n"));
+// 	if (mlx_image_to_window(data->mlx, data->wall_img, 2, 2))
+// 		return (printf("data->wall__img fails!!\n"));
+// 	if (mlx_image_to_window(data->mlx, data->rays_img, 0, 0))
+// 		return (printf("data.rays_img fails!!\n"));
+// 	ft_fill_img(data, data->wall_img);
+// 	return (0);
+// }
 
 int find_longest_line_length(char **map)
 {
@@ -180,23 +180,15 @@ int main(int arc, char **arv)
 	if (ft_check_map(&data) != 0)
 		return (printf("invalid map !!!\n"));
 
-	int i = 0;
-	printf("BEFORE : \n");
-	i = 0;
-	while (data.map[i])
-	{
-		printf("%s\n", data.map[i]); 
-		i++;
-	}
-	int longest_length = find_longest_line_length(data.map);
-	data.map = create_new_map(data.map, longest_length, ft_get_rows(data.map));
-	printf("AFTER : \n");
-	i = 0;
-	while (data.map[i])
-	{
-		printf("|%s|\n", data.map[i]);
-		i++;
-	}
+	// int longest_length = find_longest_line_length(data.map);
+	// data.map = create_new_map(data.map, longest_length, ft_get_rows(data.map));
+	// printf("AFTER : \n");
+	// int i = 0;
+	// while (data.map[i])
+	// {
+	// 	printf("|%s|\n", data.map[i]);
+	// 	i++;
+	// }
 
 	// printf("----> Textures : \n");
 	// while (data.text)

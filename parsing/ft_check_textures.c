@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:35:47 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/07/29 18:33:07 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/03 06:24:49 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,31 +57,59 @@ int ft_count_text_size(t_text *head)
     return (count);
 }
 
+int process_texture_line(t_data *data, char *line, int *no_count, int *so_count, int *we_count, int *ea_count)
+{
+    char **tmp;
+    t_text *txt = NULL;
+
+    if (!strncmp(line, "NO", 2))
+        (*no_count)++;
+    else if (!strncmp(line, "SO", 2))
+        (*so_count)++;
+    else if (!strncmp(line, "WE", 2))
+        (*we_count)++;
+    else if (!strncmp(line, "EA", 2))
+        (*ea_count)++;
+
+    tmp = ft_split(line, ' ');
+    if (tmp[2] != NULL)
+        return printf("TEXTURES : error more than one argument in texture\n");
+
+    txt = ft_new_texture(tmp[0], tmp[1]);
+    if (!txt)
+        return printf("ft_new_texture fails!!\n");
+
+    ft_add_texture(&data->text, txt);
+
+    free(tmp[0]);
+    free(tmp[1]);
+    free(tmp);
+
+    return 0;
+}
+
 int ft_get_texture(t_data *data, char **map)
 {
-	t_text	*txt;
-	char	**tmp;
-	int		i;
+    int i = 0;
+    int no_count = 0;
+    int so_count = 0;
+    int we_count = 0;
+    int ea_count = 0;
 
-	(1) && (i = 0, txt = NULL, tmp = NULL);
-	while (map[i])
-	{
-		map[i][ft_strlen(map[i])] = '\0';
-		if (!strncmp(map[i], "NO", 2) || !strncmp(map[i], "SO", 2) ||
-			!strncmp(map[i], "WE", 2) || !strncmp(map[i], "EA", 2))
-		{
-			tmp = ft_split(map[i], ' ');
-			if (tmp[2] != NULL)
-				return (printf("TEXTURES : error more than onr args in texture\n"));
-			txt = ft_new_texture(tmp[0], tmp[1]);
-			if (!txt)
-				return (printf("ft_new_texture fails!!\n"));
-			ft_add_texture(&data->text, txt);
-			free(tmp[0]);
-			free(tmp[1]);
-			free(tmp);
-		}
-		i++;
-	}
-	return (0);
+    while (map[i])
+    {
+        map[i][strlen(map[i])] = '\0';
+        if (!strncmp(map[i], "NO", 2) || !strncmp(map[i], "SO", 2) ||
+            !strncmp(map[i], "WE", 2) || !strncmp(map[i], "EA", 2))
+        {
+            if (process_texture_line(data, map[i], &no_count, &so_count, &we_count, &ea_count))
+                return 1;
+        }
+        i++;
+    }
+
+    if (no_count != 1 || so_count != 1 || we_count != 1 || ea_count != 1)
+        return printf("Error: There must be exactly one 'NO', 'SO', 'WE', and 'EA'\n");
+
+    return 0;
 }

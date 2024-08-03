@@ -6,13 +6,13 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:37:07 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/02 11:15:12 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/03 06:24:19 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-t_color *ft_new_color(char *identif, char *value)
+t_color *ft_new_color(char *identif, int r, int g, int b)
 {
     t_color *new_node;
 
@@ -20,7 +20,9 @@ t_color *ft_new_color(char *identif, char *value)
     if (!new_node)
         return (NULL);
     new_node->identif = ft_strdup(identif);
-    new_node->value = ft_strdup(value);
+    new_node->r = r;
+    new_node->g = g;
+    new_node->b = b;
     new_node->next = NULL;
     return (new_node);
 }
@@ -44,7 +46,7 @@ void ft_add_color(t_color **head, t_color *new_node)
 
 int ft_count_color_size(t_color *head)
 {
-    int     count;
+    int count;
     t_color *current;
 
     count = 0;
@@ -57,32 +59,55 @@ int ft_count_color_size(t_color *head)
     return (count);
 }
 
+int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
+{
+    char **tmp;
+    char **col;
+    t_color *color = NULL;
+
+    if (!strncmp(line, "C", 1))
+        (*c_count)++;
+    else if (!strncmp(line, "F", 1))
+        (*f_count)++;
+    tmp = ft_split(line, ' ');
+    if (tmp[2] != NULL)
+        return printf("COLORS : error more than one argument in texture\n");
+    col = ft_split(tmp[1], ',');
+    if (col[0] && col[1] && col[2])
+    {
+        if ((atoi(col[0]) < 0 || atoi(col[0]) > 255) || (atoi(col[1]) < 0
+			|| atoi(col[1]) > 255) || (atoi(col[2]) < 0 || atoi(col[2]) > 255))
+            return printf("invalid rgb \n");
+        color = ft_new_color(tmp[0], atoi(col[0]), atoi(col[1]), atoi(col[2]));
+    }
+    if (color)
+        ft_add_color(&data->colors, color);
+    else
+        return printf("Memory allocation failed\n");
+    (free(tmp[0]), free(tmp[1]), free(tmp), free(col[0]));
+    (free(col[1]), free(col[2]), free(col));
+    return (0);
+}
+
 int ft_get_colors(t_data *data, char **map)
 {
-    t_color *color;
-    char **tmp;
-    int i;
+    int i = 0;
+    int c_count = 0;
+    int f_count = 0;
 
-    (1) && (i = 0, color = NULL, tmp = NULL);
     while (map[i])
     {
-		map[i][ft_strlen(map[i])] = '\0';
+        map[i][strlen(map[i])] = '\0';
         if (!strncmp(map[i], "C", 1) || !strncmp(map[i], "F", 1))
         {
-            tmp = ft_split(map[i], ' ');
-			if (tmp[2] != NULL)
-				return (printf("COLORS : error more than onr args in texture\n"));
-			color = ft_new_color(tmp[0], tmp[1]);
-			if (color)
-				ft_add_color(&data->colors, color);
-			else
-				return (printf("Memory allocation failed\n"));
-            free(tmp[0]);
-            free(tmp[1]);
-            free(tmp);
+            if (process_color_line(data, map[i], &c_count, &f_count))
+                return 1;
         }
-
         i++;
     }
-    return (0);
+
+    if (c_count != 1 || f_count != 1)
+        return printf("Error: There must be exactly one 'C' and one 'F'\n");
+
+    return 0;
 }

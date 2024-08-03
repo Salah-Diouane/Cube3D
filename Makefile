@@ -45,7 +45,7 @@ $(NAME)			: $(OBJS)
 	cc -g -fsanitize=address $(OBJS) $(LINK) -o $(NAME) $(LIBS) -Ofaster
 
 clean			:
-	rm -rf *o
+	rm -rf $(OBJS)
 
 fclean			: clean
 	rm -rf $(NAME)
