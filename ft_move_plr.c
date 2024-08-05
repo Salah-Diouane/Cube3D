@@ -16,13 +16,13 @@ void    ft_clear_image(mlx_image_t *img)
 
 static int  ft_check_next(t_data *data, double x, double y)
 {
-    if ((data->map[(int)((y + 8) / data->grd_ht)][(int)(x / \
+    if ((data->s_map->map[(int)((y + 8) / data->grd_ht)][(int)(x / \
         data->grd_wd)] == '1') || \
-        (data->map[(int)((y - 8) / data->grd_ht)][(int)(x / \
+        (data->s_map->map[(int)((y - 8) / data->grd_ht)][(int)(x / \
         data->grd_wd)] == '1') || \
-        (data->map[(int)(y / data->grd_ht)][(int)((x + 8) / \
+        (data->s_map->map[(int)(y / data->grd_ht)][(int)((x + 8) / \
         data->grd_wd)] == '1') || \
-        (data->map[(int)(y / data->grd_ht)][(int)((x - 8) / \
+        (data->s_map->map[(int)(y / data->grd_ht)][(int)((x - 8) / \
         data->grd_wd)] == '1'))
         return (1);
     return (0);

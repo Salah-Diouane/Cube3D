@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 08:45:50 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 09:16:16 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:40:01 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 int populate_cp_map_without_trimming(t_data *data, char **cp_map,
 	int *i, int *j)
 {
-	while (data->map[*i])
+	while (data->s_map->map[*i])
 	{
-		if (just_space(data->map[*i]) != -1)
+		if (just_space(data->s_map->map[*i]) != -1)
 			(*i)++;
 		else
 			break;
 	}
-	while (data->map[*i])
+	while (data->s_map->map[*i])
 	{
-		cp_map[*j] = data->map[*i];
+		cp_map[*j] = data->s_map->map[*i];
 		if (cp_map[*j] == NULL)
 			return (printf("Memory allocation error.\n"));
 		(*j)++;
@@ -53,14 +53,17 @@ int ft_check_position_of_zero(char **cp_map, int *i, int *j)
 
 int ft_second_check_map(t_data *data)
 {
-	char **cp_map;
+	char **cp_map = NULL;
 	int i;
 	int j;
 	int rows;
 	int cols;
 
-	(1) && (i = 0, j = 0, rows = ft_get_rows(data->map),
-		cols = ft_get_cols(data->map));
+	(1) && (i = 0, j = 0, rows = ft_get_rows(data->s_map->map),
+		cols = ft_get_cols(data->s_map->map));
+	cp_map = g_malloc((rows + 1) * sizeof(char *), MALLOC);
+    if (cp_map == NULL)
+        return (printf("Memory allocation error.\n"));
 	if (populate_cp_map_without_trimming(data, cp_map, &i, &j) != 0)
 		return (-1);
 	(1) && (i = 0, cp_map[j] = NULL);
@@ -76,7 +79,6 @@ int ft_second_check_map(t_data *data)
 		}
 		i++;
 	}
-	// free(cp_map);
 	return (0);
 }
 

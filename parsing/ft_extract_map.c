@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:35:28 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:07:46 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:54:38 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_read_map(char **arv)
 	(1) && (fd = open(arv[1], O_RDONLY, 0777), len = 1,
 		line = get_next_line(fd));
 	while (line)
-		(1) && (len++, free(line), line = get_next_line(fd));
+		(1) && (len++, /*free(line),*/ line = get_next_line(fd));
 	(1) && (free(line), close (fd), all = g_malloc(len * sizeof(char **), MALLOC));
 	(1) && (len = 0, fd = open(arv[1], O_RDONLY, 0777),
 		line = get_next_line(fd));
@@ -32,7 +32,7 @@ char	**ft_read_map(char **arv)
 		line = get_next_line(fd);
 		len++;
 	}
-	(1) && (all[len] = NULL, free(line), close (fd));
+	(1) && (all[len] = NULL/*, free(line)*/, close (fd));
 	return (all);
 }
 
@@ -81,24 +81,22 @@ int ft_get_map(t_data *data, char **map)
 	int j;
 
 	(1) && (i = 0, j = 0);
-	data->map = (char **)g_malloc((ft_count_map_line(map) + 1) * sizeof(char *), MALLOC);
-	if (!data->map)
+	data->s_map->map = (char **)g_malloc((ft_count_map_line(map) + 1) * sizeof(char *), MALLOC);
+	if (!data->s_map->map)
 		return (printf("Memory allocation failed!\n"));
 	i = 0;
 	while (map[i])
 	{
 		if (!ft_is_identifier(map[i]) )
 		{
-			// if (just_space(map[i]) == 0)
-			// 	return (printf("invalid map!\n"));
-			data->map[j] = ft_strdup(map[i]);
-			if (!data->map[j])
+			data->s_map->map[j] = ft_strdup(map[i]);
+			if (!data->s_map->map[j])
 				return (printf("Memory allocation failed!\n"));
 			j++;
 		}
 		i++;
 	}
-	data->map[j] = NULL;
+	data->s_map->map[j] = NULL;
 	// ft_free_2d(map);
 	return (0);
 }

@@ -6,11 +6,33 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:37:07 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:06:54 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:37:45 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
+
+int	ft_atoi( char *str)
+{
+	int	res;
+	int	negative;
+
+	negative = 1;
+	res = 0;
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
+			*str == '\v' || *str == '\f' || *str == '\r'))
+		++str;
+	if (*str == '-')
+		negative = -1;
+	if (*str == '-' || *str == '+')
+		++str;
+	while (*str && *str >= '0' && *str <= '9')
+	{
+		res = res * 10 + (*str - 48);
+		++str;
+	}
+	return (res * negative);
+}
 
 t_color *ft_new_color(char *identif, int r, int g, int b)
 {
@@ -59,6 +81,21 @@ int ft_count_color_size(t_color *head)
     return (count);
 }
 
+int is_digit(char    *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] >= 0 && str[i] <= 9)
+            i++;
+        else
+            return (1);
+    }
+    return (0);
+}
+
 int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
 {
     char **tmp;
@@ -75,17 +112,17 @@ int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
     col = ft_split(tmp[1], ',');
     if (col[0] && col[1] && col[2])
     {
-        if ((atoi(col[0]) < 0 || atoi(col[0]) > 255) || (atoi(col[1]) < 0
-			|| atoi(col[1]) > 255) || (atoi(col[2]) < 0 || atoi(col[2]) > 255))
+        if (col[0][0] == '\n' || col[1][0] == '\n' || col[2][0] == '\n')
+            return (printf("invalid rgb \n"));
+        if ((ft_atoi(col[0]) < 0 || ft_atoi(col[0]) > 255) || (ft_atoi(col[1]) < 0
+            || ft_atoi(col[1]) > 255) || (ft_atoi(col[2]) < 0 || ft_atoi(col[2]) > 255))
             return printf("invalid rgb \n");
-        color = ft_new_color(tmp[0], atoi(col[0]), atoi(col[1]), atoi(col[2]));
+        color = ft_new_color(tmp[0], ft_atoi(col[0]), ft_atoi(col[1]), ft_atoi(col[2]));
     }
     if (color)
         ft_add_color(&data->colors, color);
     else
-        return printf("Memory allocation failed\n");
-    ft_free_2d(tmp);
-    ft_free_2d(col);
+        return (printf("Memory allocation failed\n"));
     return (0);
 }
 

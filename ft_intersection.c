@@ -13,7 +13,7 @@ static int  is_wall(t_data *data, t_point *point, int x_d, int y_d)
     int         grd_wd;
     char        **map;
 
-    map = data->map;
+    map = data->s_map->map;
     grd_ht = data->grd_ht;
     grd_wd = data->grd_wd;
     if ((point->x < 0) || (point->y < 0) || \

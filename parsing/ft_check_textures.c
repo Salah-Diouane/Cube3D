@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:35:47 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:07:12 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:13:53 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_add_texture(t_text **head, t_text *new_node)
 		return;
 	}
 	current = *head;
-	while (current && current->next)
+    while (current && current->next)
 		current = current->next;
 	current->next = new_node;
 }
@@ -77,7 +77,6 @@ int process_texture_line(t_data *data, char *line, int *no_count, int *so_count,
     if (!txt)
         return (printf("ft_new_texture fails!!\n"));
     ft_add_texture(&data->text, txt);
-    ft_free_2d(tmp);
     return (0);
 }
 

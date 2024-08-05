@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:08:36 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:09:07 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:13:36 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_move_string(char *s)
 		i++;
 	if (s[i] == '\0')
 	{
-		free(s);
+		// free(s);
 		return (NULL);
 	}
 	i += (s[i] == '\n');
@@ -64,7 +64,7 @@ char	*ft_move_string(char *s)
 		j++;
 	}
 	new[j] = '\0';
-	free(s);
+	// free(s);
 	return (new);
 }
 
@@ -83,14 +83,14 @@ char	*reader(int fd, char *reserve)
 		rd = read(fd, line, BUFFER_SIZE);
 		if (rd < 0)
 		{
-			free(line);
-			free(reserve);
+			// free(line);
+			// free(reserve);
 			return (NULL);
 		}
 		line[rd] = '\0';
 		reserve = ft_strjoin(reserve, line);
 	}
-	free(line);
+	// free(line);
 	return (reserve);
 }
 
@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	reserve = reader(fd, reserve);
 	if (!reserve)
 	{
-		free(reserve);
+		// free(reserve);
 		return (NULL);
 	}
 	line = ft_read_line(reserve);

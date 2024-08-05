@@ -163,7 +163,7 @@ char **create_new_map(char **map, int longest_length, int rows)
 		i++;
 	}
 	new_map[j] = NULL;
-	ft_free_2d(map);
+	// ft_free_2d(map);
 	return new_map;
 }
 
@@ -172,72 +172,42 @@ void f()
 	system("leaks cube");
 }
 
-void free_text(t_text *text)
-{
-    t_text *temp;
-
-    while (text != NULL)
-    {
-        temp = text;
-        text = text->next;
-        free(temp->identif);
-        free(temp->chem);
-        free(temp);
-    }
-}
-
-void free_color(t_color *color)
-{
-    t_color *temp;
-
-    while (color != NULL)
-    {
-        temp = color;
-        color = color->next;
-		if (temp->identif)
-			free(temp->identif);
-		else
-			break ;
-        free(temp);
-    }
-}
-
 // crop : 512 ;resize : 128
 int main(int arc, char **arv)
 {
 	t_data	data;
+	t_map 	*map;
+	t_text	*text;
+	t_color	*col;
 	int		longest_length;
-	char *map = "1111111111 1000000001 1000010101 \
-                    1100000001 1010110101 1010000001 \
-                    1000000011 1010110001 1000000001 \
-                    1111111111";
 
-	data.plr.d = 0;
-	data.plr.x = 140;
-	data.plr.y = 140;
-	data.grd_ht = 128;
-	data.grd_wd = 128;
+	data.grd_ht = 64;
+	data.grd_wd = 64;
 	data.wnd_ht = 700;
 	data.wnd_wd = 1060;
-
+	map = (t_map *)g_malloc(sizeof(t_map), MALLOC);
+	col = (t_color *)g_malloc(sizeof(t_color), MALLOC);
+	text = (t_text *)g_malloc(sizeof(t_text), MALLOC);
+	data.s_map = map;
+	data.text = NULL;
+	data.colors = NULL;
+	t_col *head;
 	atexit(f);
-	// data.map = ft_split(map, ' ');
 	if (ft_get_input(&data, arv) != 0)
-	{
 		return (printf("----invalid map !!!\n"));
-	}
 	if (ft_check_map(&data) != 0)
 		return (printf("invalid map !!!\n"));
-	longest_length = find_longest_line_length(data.map);
-	data.map = create_new_map(data.map, longest_length, ft_get_rows(data.map));
-	if (has_blank_lines_in_middle(data.map))
+	longest_length = find_longest_line_length(data.s_map->map);
+	data.s_map->map = create_new_map(data.s_map->map, longest_length, ft_get_rows(data.s_map->map));
+	if (has_blank_lines_in_middle(data.s_map->map))
 		return (printf("Error: Map contains blank lines in the middle\n"));
-	int i = 0;
-	while (data.map[i])
-	{
-		printf("|%s|\n", data.map[i++]);
-	}
-	ft_free_2d(data.map);
-	free_color(data.colors);
-	free_text(data.text);
+	// int i = 0;
+	// while (data.s_map->map[i])
+	// {
+	// 	printf("|%s|\n", data.s_map->map[i++]);
+	// }
+	data.s_map->width = longest_length;
+	data.s_map->width = ft_get_rows(data.s_map->map);
+
+	// clear_all(&head);
 }

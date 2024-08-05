@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:15:30 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:06:27 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:00:20 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int initialize_cp_map(t_data *data, char ***cp_map, int *rows)
 {
-	*rows = ft_get_rows(data->map);
+	*rows = ft_get_rows(data->s_map->map);
 
 	*cp_map = (char **)g_malloc(sizeof(char *) * (*rows + 1), MALLOC);
 	if (!*cp_map)
@@ -24,19 +24,19 @@ int initialize_cp_map(t_data *data, char ***cp_map, int *rows)
 
 int populate_cp_map(t_data *data, char **cp_map, int *i, int *j)
 {
-	while (data->map[*i])
+	while (data->s_map->map[*i])
 	{
-		if (just_space(data->map[*i]) != -1)
+		if (just_space(data->s_map->map[*i]) != -1)
 			(*i)++;
 		else
 			break;
 	}
-	while (data->map[*i])
+	while (data->s_map->map[*i])
 	{
-		cp_map[*j] = trim_whitespace(data->map[*i]);
+		cp_map[*j] = trim_whitespace(data->s_map->map[*i]);
 		if (cp_map[*j] == NULL)
 		{
-			ft_free_2d(cp_map);
+			// ft_free_2d(cp_map);
 			return (printf("Memory allocation error.\n"));
 		}
 		(*j)++;
@@ -135,12 +135,12 @@ int set_player_position(t_data *data, char **cp_map)
 int check_walls_and_elements(t_data *data, char **cp_map)
 {
 	if (check_walls(cp_map) != 0)
-		return -1;
+		return (-1);
 	if (check_elements(cp_map) != 0)
-		return -1;
+		return (-1);
 	if (set_player_position(data, cp_map) != 0)
-		return -1;
-	return 0;
+		return (-1);
+	return (0);
 }
 
 int ft_first_check_map(t_data *data)
@@ -150,25 +150,12 @@ int ft_first_check_map(t_data *data)
 	int rows;
 
 	if (initialize_cp_map(data, &cp_map, &rows) != 0)
-	{
-		ft_free_2d(cp_map);
 		return (-1);
-	}
 	if (populate_cp_map(data, cp_map, &i, &j) != 0)
-	{
-		ft_free_2d(cp_map);
 		return (-1);
-	}
 	if (check_first_last_line(cp_map, j) != 0)
-	{
-		ft_free_2d(cp_map);
 		return (-1);
-	}
 	if (check_walls_and_elements(data, cp_map) != 0)
-	{
-		ft_free_2d(cp_map);
 		return (-1);
-	}
-	ft_free_2d(cp_map);
-	return 0;
+	return (0);
 }

@@ -19,7 +19,9 @@ SRCS			= 	main.c \
 					parsing/ft_check_map_2.c \
 					parsing/ft_check_map_3.c \
 					parsing/ft_check_map_4.c \
-					parsing/ft_check_map_5.c
+					parsing/ft_check_map_5.c \
+					parsing/free_all.c 
+
 
 ######################### object files ###############################
 

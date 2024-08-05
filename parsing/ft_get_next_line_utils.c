@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:09:26 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:08:30 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:13:18 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ char	*ft_strjoin(char *start, char *buff)
 	if (!ptr)
 		return (NULL);
 	ptr = ft_join(ptr, start, buff);
-	free(start);
+	// free(start);
 	return (ptr);
 }

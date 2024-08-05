@@ -7,9 +7,9 @@ void    ft_free_2d(char **arr)
     i = -1;
     if (arr)
     {
-        // while (arr && arr[++i])
-        //     free(arr[i]);
-        // free(arr);
+        while (arr && arr[++i])
+            free(arr[i]);
+        free(arr);
     }
 }
 
@@ -84,7 +84,7 @@ char    **ft_split(char const *s, char c)
             if (*s)
                 arr[++i] = ft_take_word(s, c);
             if (!arr[i])
-                return (ft_free_2d(arr), NULL);
+                return (/*ft_free_2d(arr),*/ NULL);
             s += ft_strlen_sp(arr[i], c);
         }
         arr[++i] = NULL;

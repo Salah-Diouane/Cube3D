@@ -6,7 +6,7 @@ int32_t *ft_get_img_n(mlx_image_t *img)
     int index;
     int pixel_index;
 
-    texture = (int32_t *)mag_malloc(sizeof(int32_t) * (img->width * img->height), MALLOC);
+    texture = (int32_t *)g_malloc(sizeof(int32_t) * (img->width * img->height), MALLOC);
     if (!texture)
         return (NULL);
 

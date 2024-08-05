@@ -38,11 +38,7 @@ typedef enum e_call
 }t_call;
 
 
-t_col	*new_node(void	*ptr);
-t_col	*last_node(t_col **head);
-void	add_back(t_col	**head, t_col *new);
-void	clear_all(t_col **head);
-void	*g_malloc(size_t size, t_call call);
+
 
 
 typedef struct  s_point
@@ -89,46 +85,57 @@ typedef struct  s_color
 	struct s_color   *next;
 }               t_color;
 
+typedef struct  s_map
+{
+	char		**map;
+	int         width;
+	int         height;
+	struct s_map   *next;
+}               t_map;
+
 typedef struct s_data
 {
-    mlx_texture_t   *wall_e;
-    mlx_texture_t   *wall_w;
-    mlx_texture_t   *wall_s;
-    mlx_texture_t   *wall_n;
+	mlx_texture_t   *wall_e;
+	mlx_texture_t   *wall_w;
+	mlx_texture_t   *wall_s;
+	mlx_texture_t   *wall_n;
 
-    mlx_texture_t   *ignwan;
-    mlx_image_t     *ignwan_img;
-    mlx_texture_t   *akal;
-    mlx_image_t     *akal_img;
+	mlx_texture_t   *ignwan;
+	mlx_image_t     *ignwan_img;
+	mlx_texture_t   *akal;
+	mlx_image_t     *akal_img;
 
-    mlx_image_t     *img_n;
-    mlx_image_t     *img_s;
-    mlx_image_t     *img_w;
-    mlx_image_t     *img_e;
+	mlx_image_t     *img_n;
+	mlx_image_t     *img_s;
+	mlx_image_t     *img_w;
+	mlx_image_t     *img_e;
 
-    int32_t         *texture_n;
-    int32_t         *texture_s;
-    int32_t         *texture_w;
-    int32_t         *texture_e;
+	int32_t         *texture_n;
+	int32_t         *texture_s;
+	int32_t         *texture_w;
+	int32_t         *texture_e;
 
-    char            **map;
-    int             wnd_ht;
-    int             wnd_wd;
-    int             grd_ht;
-    int             grd_wd;
-    
-    t_plr           plr;
-    mlx_t           *mlx;
-    t_point         *array;
-    t_face          *face_lst;
-    mlx_image_t     *rays_img;
-    mlx_image_t     *wall_img;
-    mlx_image_t     *ddd__img;
+	t_map			*s_map;
 
-    t_text          *text;
-    t_color         *colors;
+	int             wnd_ht;
+	int             wnd_wd;
+	int             grd_ht;
+	int             grd_wd;
+	
+	t_plr           plr;
+	mlx_t           *mlx;
+	t_point         *array;
+	t_face          *face_lst;
+	mlx_image_t     *rays_img;
+	mlx_image_t     *wall_img;
+	mlx_image_t     *ddd__img;
+
+	t_text          *text;
+	t_color         *colors;
 } t_data;
 
+void	clear_all(t_col **head);
+void	*g_malloc(size_t size, t_call call);
 
 // Parsing :
 void    ft_free_2d(char **arr);

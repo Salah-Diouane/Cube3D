@@ -1,7 +1,7 @@
 
 #include "../cube.h"
 
-t_col	*new_node(void	*ptr)
+static t_col	*new_node(void	*ptr)
 {
 	t_col	*new;
 
@@ -13,7 +13,7 @@ t_col	*new_node(void	*ptr)
 	return (new);
 }
 
-t_col	*last_node(t_col **head)
+static t_col	*last_node(t_col **head)
 {
 	t_col	*tmp;
 
@@ -25,7 +25,7 @@ t_col	*last_node(t_col **head)
 	return (tmp);
 }
 
-void	add_back(t_col	**head, t_col *new)
+static void	add_back(t_col	**head, t_col *new)
 {
 	if (!head || !new)
 		return ;
