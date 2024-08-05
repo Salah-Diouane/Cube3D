@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:35:47 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 09:45:32 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:07:12 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_text	*ft_new_texture(char *identif, char *chem)
 {
 	t_text  *new_node;
 
-	new_node = (t_text *)malloc(sizeof(t_text));
+	new_node = (t_text *)g_malloc(sizeof(t_text), MALLOC);
 	if (!new_node)
 		return (NULL);
 	new_node->identif = ft_strdup(identif);

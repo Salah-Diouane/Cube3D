@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:35:28 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 09:12:29 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:07:46 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**ft_read_map(char **arv)
 		line = get_next_line(fd));
 	while (line)
 		(1) && (len++, free(line), line = get_next_line(fd));
-	(1) && (free(line), close (fd), all = malloc(len * sizeof(char **)));
+	(1) && (free(line), close (fd), all = g_malloc(len * sizeof(char **), MALLOC));
 	(1) && (len = 0, fd = open(arv[1], O_RDONLY, 0777),
 		line = get_next_line(fd));
 	while (line)
@@ -81,7 +81,7 @@ int ft_get_map(t_data *data, char **map)
 	int j;
 
 	(1) && (i = 0, j = 0);
-	data->map = (char **)malloc((ft_count_map_line(map) + 1) * sizeof(char *));
+	data->map = (char **)g_malloc((ft_count_map_line(map) + 1) * sizeof(char *), MALLOC);
 	if (!data->map)
 		return (printf("Memory allocation failed!\n"));
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:22:54 by bramzil           #+#    #+#             */
-/*   Updated: 2024/07/28 14:38:19 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:02:53 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_face   *ft_create_node(double x_ref, double y_ref)
 {
     t_face      *node;
     
-    node = (t_face *)malloc(sizeof(t_face));
+    node = (t_face *)g_malloc(sizeof(t_face), MALLOC);
     node->height_1 = -1;
     node->x_ref = x_ref;
     node->y_ref = y_ref;

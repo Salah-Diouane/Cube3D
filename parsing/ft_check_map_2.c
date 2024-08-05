@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:15:30 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 09:22:07 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:06:27 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int initialize_cp_map(t_data *data, char ***cp_map, int *rows)
 {
 	*rows = ft_get_rows(data->map);
 
-	*cp_map = (char **)malloc(sizeof(char *) * (*rows + 1));
+	*cp_map = (char **)g_malloc(sizeof(char *) * (*rows + 1), MALLOC);
 	if (!*cp_map)
 		return (printf("malloc error\n"));
 	return (0);
@@ -50,7 +50,7 @@ int check_first_last_line(char **cp_map, int j)
 {
 	if (!is_all_ones(cp_map[0]) || !is_all_ones(cp_map[j - 1]))
 	{
-		return (printf("The first or last line is not all ones.\n"));
+		return ( printf("The first or last line is not all ones.\n"));
 	}
 	return 0;
 }

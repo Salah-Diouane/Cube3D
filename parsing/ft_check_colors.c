@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:37:07 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 09:28:18 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:06:54 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_color *ft_new_color(char *identif, int r, int g, int b)
 {
     t_color *new_node;
 
-    new_node = (t_color *)malloc(sizeof(t_color));
+    new_node = (t_color *)g_malloc(sizeof(t_color), MALLOC);
     if (!new_node)
         return (NULL);
     new_node->identif = ft_strdup(identif);

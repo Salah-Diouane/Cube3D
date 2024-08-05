@@ -7,9 +7,9 @@ void    ft_free_2d(char **arr)
     i = -1;
     if (arr)
     {
-        while (arr && arr[++i])
-            free(arr[i]);
-        free(arr);
+        // while (arr && arr[++i])
+        //     free(arr[i]);
+        // free(arr);
     }
 }
 
@@ -53,7 +53,7 @@ static char *ft_take_word(char const *s, char c)
     len = ft_strlen_sp(s, c);
     if (len)
     {
-        word = malloc(sizeof(char) * (len + 1));
+        word = g_malloc(sizeof(char) * (len + 1), MALLOC);
         if (!word)
             return (NULL);
         while (len--)
@@ -74,7 +74,7 @@ char    **ft_split(char const *s, char c)
     wrds = ft_count_words(s, c);
     if (wrds)
     {
-        arr = (char **)malloc(sizeof(char*) * (wrds + 1));
+        arr = (char **)g_malloc(sizeof(char*) * (wrds + 1), MALLOC);
         if (!arr)
             return (NULL);
         while (*s)

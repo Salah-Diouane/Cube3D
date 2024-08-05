@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:08:36 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/07/31 09:48:51 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:09:07 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_read_line(char *s)
 		i++;
 	if (s[i] == '\n')
 		i++;
-	line = (char *)malloc(i + 1);
+	line = (char *)g_malloc(i + 1, MALLOC);
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -54,7 +54,7 @@ char	*ft_move_string(char *s)
 		return (NULL);
 	}
 	i += (s[i] == '\n');
-	new = (char *)malloc(ft_strlen(s) - i + 1);
+	new = (char *)g_malloc(ft_strlen(s) - i + 1, MALLOC);
 	if (!new)
 		return (NULL);
 	j = 0;
@@ -75,7 +75,7 @@ char	*reader(int fd, char *reserve)
 
 	line = NULL;
 	rd = 1;
-	line = (char *)malloc((size_t)BUFFER_SIZE + 1);
+	line = (char *)g_malloc((size_t)BUFFER_SIZE + 1, MALLOC);
 	if (!line)
 		return (NULL);
 	while (!(ft_find(reserve, '\n')) && rd != 0)

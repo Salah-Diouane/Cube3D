@@ -83,7 +83,7 @@ int find_longest_line_length(char **map)
 		}
 		i++;
 	}
-	return longest_length;
+	return (longest_length);
 }
 
 
@@ -133,7 +133,7 @@ int has_blank_lines_in_middle(char **map)
 
 char **create_new_map(char **map, int longest_length, int rows)
 {
-	char **new_map = (char **)malloc((rows + 1) * sizeof(char *));
+	char **new_map = (char **)g_malloc((rows + 1) * sizeof(char *), MALLOC);
 	if (!new_map)
 		return NULL;
 
@@ -147,14 +147,9 @@ char **create_new_map(char **map, int longest_length, int rows)
 	}
 	while (map[i] != NULL)
 	{
-		new_map[j] = (char *)malloc((longest_length + 1) * sizeof(char));
+		new_map[j] = (char *)g_malloc((longest_length + 1) * sizeof(char), MALLOC);
 		if (!new_map[j])
 		{
-			for (int k = 0; k < j; k++)
-			{
-				free(new_map[k]);
-			}
-			free(new_map);
 			return NULL;
 		}
 		strcpy(new_map[j], map[i]);
@@ -225,20 +220,18 @@ int main(int arc, char **arv)
 	data.wnd_ht = 700;
 	data.wnd_wd = 1060;
 
-	// atexit(f);
+	atexit(f);
 	// data.map = ft_split(map, ' ');
 	if (ft_get_input(&data, arv) != 0)
 	{
-		// if (data.map[0])
-		// 	ft_free_2d(data.map);
 		return (printf("----invalid map !!!\n"));
 	}
 	if (ft_check_map(&data) != 0)
-		return (ft_free_2d(data.map), free_color(data.colors), free_text(data.text),  printf("invalid map !!!\n"));
+		return (printf("invalid map !!!\n"));
 	longest_length = find_longest_line_length(data.map);
 	data.map = create_new_map(data.map, longest_length, ft_get_rows(data.map));
 	if (has_blank_lines_in_middle(data.map))
-		return (ft_free_2d(data.map), free_color(data.colors), free_text(data.text),  printf("Error: Map contains blank lines in the middle\n"));
+		return (printf("Error: Map contains blank lines in the middle\n"));
 	int i = 0;
 	while (data.map[i])
 	{

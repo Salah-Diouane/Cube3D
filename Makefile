@@ -40,10 +40,10 @@ CFLAGS			= -g -fsanitize=address
 all				: $(NAME)
 
 %.o				: %.c
-	cc $(CFLAGS) -c $< -o $@
+	cc -c $< -o $@
 
 $(NAME)			: $(OBJS)
-	cc $(CFLAGS) $(OBJS) $(LINK) -o $(NAME) $(LIBS)
+	cc  $(OBJS) $(LINK) -o $(NAME) $(LIBS)
 
 clean			:
 	rm -rf $(OBJS)
