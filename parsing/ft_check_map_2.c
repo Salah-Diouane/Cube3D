@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:15:30 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/01 14:27:57 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 09:22:07 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int populate_cp_map(t_data *data, char **cp_map, int *i, int *j)
 		cp_map[*j] = trim_whitespace(data->map[*i]);
 		if (cp_map[*j] == NULL)
 		{
-			for (int k = 0; k < *j; k++)
-				free(cp_map[k]);
-			free(cp_map);
+			ft_free_2d(cp_map);
 			return (printf("Memory allocation error.\n"));
 		}
 		(*j)++;
@@ -52,9 +50,6 @@ int check_first_last_line(char **cp_map, int j)
 {
 	if (!is_all_ones(cp_map[0]) || !is_all_ones(cp_map[j - 1]))
 	{
-		for (int k = 0; k < j; k++)
-			free(cp_map[k]);
-		free(cp_map);
 		return (printf("The first or last line is not all ones.\n"));
 	}
 	return 0;
@@ -155,12 +150,25 @@ int ft_first_check_map(t_data *data)
 	int rows;
 
 	if (initialize_cp_map(data, &cp_map, &rows) != 0)
+	{
+		ft_free_2d(cp_map);
 		return (-1);
+	}
 	if (populate_cp_map(data, cp_map, &i, &j) != 0)
+	{
+		ft_free_2d(cp_map);
 		return (-1);
+	}
 	if (check_first_last_line(cp_map, j) != 0)
+	{
+		ft_free_2d(cp_map);
 		return (-1);
+	}
 	if (check_walls_and_elements(data, cp_map) != 0)
+	{
+		ft_free_2d(cp_map);
 		return (-1);
+	}
+	ft_free_2d(cp_map);
 	return 0;
 }

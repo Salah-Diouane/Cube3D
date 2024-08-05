@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:35:28 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/01 13:45:06 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 09:12:29 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int ft_get_map(t_data *data, char **map)
 	{
 		if (!ft_is_identifier(map[i]) )
 		{
+			// if (just_space(map[i]) == 0)
+			// 	return (printf("invalid map!\n"));
 			data->map[j] = ft_strdup(map[i]);
 			if (!data->map[j])
 				return (printf("Memory allocation failed!\n"));
@@ -97,5 +99,6 @@ int ft_get_map(t_data *data, char **map)
 		i++;
 	}
 	data->map[j] = NULL;
+	// ft_free_2d(map);
 	return (0);
 }

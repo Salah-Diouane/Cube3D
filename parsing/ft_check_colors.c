@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:37:07 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/03 06:24:19 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 09:28:18 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
     else if (!strncmp(line, "F", 1))
         (*f_count)++;
     tmp = ft_split(line, ' ');
-    if (tmp[2] != NULL)
+    if (tmp[2] != NULL || (!tmp[0] || !tmp[1]))
         return printf("COLORS : error more than one argument in texture\n");
     col = ft_split(tmp[1], ',');
     if (col[0] && col[1] && col[2])
@@ -84,30 +84,31 @@ int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
         ft_add_color(&data->colors, color);
     else
         return printf("Memory allocation failed\n");
-    (free(tmp[0]), free(tmp[1]), free(tmp), free(col[0]));
-    (free(col[1]), free(col[2]), free(col));
+    ft_free_2d(tmp);
+    ft_free_2d(col);
     return (0);
 }
 
 int ft_get_colors(t_data *data, char **map)
 {
-    int i = 0;
-    int c_count = 0;
-    int f_count = 0;
+    int i;
+    int c_count;
+    int f_count;
 
+    c_count = 0;
+    f_count = 0;
+    i = 0;
     while (map[i])
     {
         map[i][strlen(map[i])] = '\0';
         if (!strncmp(map[i], "C", 1) || !strncmp(map[i], "F", 1))
         {
             if (process_color_line(data, map[i], &c_count, &f_count))
-                return 1;
+                return (1);
         }
         i++;
     }
-
     if (c_count != 1 || f_count != 1)
-        return printf("Error: There must be exactly one 'C' and one 'F'\n");
-
-    return 0;
+        return (printf("Error: There must be exactly one 'C' and one 'F'\n"));
+    return (0);
 }

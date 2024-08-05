@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:07:16 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/03 06:53:52 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 09:40:29 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,17 @@ int ft_get_input(t_data *data, char **arv)
 	char    **map;
 
 	map = ft_read_map(arv);
-	int i = 0;
 	if (!map)
-		return (printf("invalid map !!!\n"));
+		return (ft_free_2d(map), printf("invalid map !!!\n"));
 	if (validate_elements_position(map) != 0)
-		return (printf("ft_check_order fails!!\n"));
+		return (ft_free_2d(map), printf("ft_check_order fails!!\n"));
 	if (ft_get_map(data, map) != 0)
-		return (printf("ft_get_map fails!!\n"));
+		return (ft_free_2d(map), printf("ft_get_map fails!!\n"));
 	if (ft_get_texture(data, map) != 0 || ft_count_text_size(data->text) != 4
 			|| ft_check_len_txt(data->text) == -1)
-		return (printf("ft_get_texture fails!!\n"));
+		return (ft_free_2d(map), printf("ft_get_texture fails!!\n"));
 	if (ft_get_colors(data, map) != 0 || ft_count_color_size(data->colors) != 2)
-		return (printf("ft_get_colors fails!!\n"));
+		return (ft_free_2d(map), printf("ft_get_colors fails!!\n"));
+	ft_free_2d(map);
 	return (0);
 }

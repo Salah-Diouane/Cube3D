@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 08:45:50 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/01 13:46:19 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 09:16:16 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int populate_cp_map_without_trimming(t_data *data, char **cp_map,
 	{
 		cp_map[*j] = data->map[*i];
 		if (cp_map[*j] == NULL)
-			return (free(cp_map), printf("Memory allocation error.\n"));
+			return (printf("Memory allocation error.\n"));
 		(*j)++;
 		(*i)++;
 	}
@@ -38,16 +38,16 @@ int ft_check_position_of_zero(char **cp_map, int *i, int *j)
 {
 	if (*i > 0 && (cp_map[*i - 1][*j] == ' ' || cp_map[*i - 1][*j] == '\t'
 			|| cp_map[*i - 1][*j] == '\0'))
-		return (free(cp_map), printf("invalid_zero_position\n"));
+		return (printf("invalid_zero_position\n"));
 	if (cp_map[*i + 1] != NULL && (cp_map[*i + 1][*j] == ' '
 			|| cp_map[*i + 1][*j] == '\t' || cp_map[*i + 1][*j] == '\0'))
-		return (free(cp_map), printf("invalid_zero_position\n"));
+		return (printf("invalid_zero_position\n"));
 	if (*j > 0 && (cp_map[*i][*j - 1] == ' ' || cp_map[*i][*j - 1] == '\t'
 			|| cp_map[*i][*j - 1] == '\0'))
-		return (free(cp_map), printf("invalid_zero_position\n"));
+		return (printf("invalid_zero_position\n"));
 	if (cp_map[*i][*j + 1] == ' ' || cp_map[*i][*j + 1] == '\t'
 			|| cp_map[*i][*j + 1] == '\0')
-		return (free(cp_map), printf("invalid_zero_position\n"));
+		return (printf("invalid_zero_position\n"));
 	return (0);
 }
 
@@ -76,8 +76,8 @@ int ft_second_check_map(t_data *data)
 		}
 		i++;
 	}
-	free(cp_map);
-	return 0;
+	// free(cp_map);
+	return (0);
 }
 
 int ft_check_map(t_data *data)

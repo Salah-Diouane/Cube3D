@@ -69,9 +69,7 @@ typedef struct  s_color
 	struct s_color   *next;
 }               t_color;
 
-
-
-typedef struct  s_data
+typedef struct s_data
 {
     mlx_texture_t   *wall_e;
     mlx_texture_t   *wall_w;
@@ -79,26 +77,26 @@ typedef struct  s_data
     mlx_texture_t   *wall_n;
 
     mlx_texture_t   *ignwan;
-	mlx_image_t		*ignwan_img;
+    mlx_image_t     *ignwan_img;
     mlx_texture_t   *akal;
-	mlx_image_t		*akal_img;
+    mlx_image_t     *akal_img;
 
-	mlx_image_t		*img_n;
-	mlx_image_t		*img_s;
-	mlx_image_t		*img_w;
-	mlx_image_t		*img_e;
+    mlx_image_t     *img_n;
+    mlx_image_t     *img_s;
+    mlx_image_t     *img_w;
+    mlx_image_t     *img_e;
 
+    int32_t         *texture_n;
+    int32_t         *texture_s;
+    int32_t         *texture_w;
+    int32_t         *texture_e;
 
-
-	int32_t			*texture_n;
-	int32_t			*texture_s;
-	int32_t			*texture_w;
-	int32_t			*texture_e;
     char            **map;
     int             wnd_ht;
     int             wnd_wd;
     int             grd_ht;
     int             grd_wd;
+    
     t_plr           plr;
     mlx_t           *mlx;
     t_point         *array;
@@ -107,11 +105,13 @@ typedef struct  s_data
     mlx_image_t     *wall_img;
     mlx_image_t     *ddd__img;
 
-	t_text			*text;
-	t_color			*colors;
-}               t_data;
+    t_text          *text;
+    t_color         *colors;
+} t_data;
+
 
 // Parsing :
+void    ft_free_2d(char **arr);
 int		ft_strlen(char *s);
 char	*ft_strdup(char *s1);
 int		just_space(char *str);
