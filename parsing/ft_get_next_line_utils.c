@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:09:26 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:13:18 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:26:14 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -90,6 +92,5 @@ char	*ft_strjoin(char *start, char *buff)
 	if (!ptr)
 		return (NULL);
 	ptr = ft_join(ptr, start, buff);
-	// free(start);
 	return (ptr);
 }

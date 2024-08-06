@@ -6,13 +6,13 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:08:36 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 12:13:36 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:37:53 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-char	*ft_read_line(char *s)
+static char	*ft_read_line(char *s)
 {
 	char	*line;
 	int		i;
@@ -39,7 +39,7 @@ char	*ft_read_line(char *s)
 	return (line);
 }
 
-char	*ft_move_string(char *s)
+static char	*ft_move_string(char *s)
 {
 	char	*new;
 	int		i;
@@ -68,7 +68,7 @@ char	*ft_move_string(char *s)
 	return (new);
 }
 
-char	*reader(int fd, char *reserve)
+static char	*reader(int fd, char *reserve)
 {
 	int		rd;
 	char	*line;

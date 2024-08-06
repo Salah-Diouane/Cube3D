@@ -64,7 +64,11 @@ void	*g_malloc(size_t size, t_call call)
 	{
 		ptr = malloc(size);
 		if (!ptr)
-			return (clear_all(&head), NULL);
+		{
+			printf("allocation memory fails !!\n");
+			clear_all(&head);
+			exit (0);
+		}
 		tmp = new_node(ptr);
 		if (!tmp)
 			return (clear_all(&head), free(ptr), NULL);

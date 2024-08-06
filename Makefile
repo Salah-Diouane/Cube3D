@@ -15,11 +15,12 @@ SRCS			= 	main.c \
 					parsing/ft_get_next_line.c \
 					parsing/ft_get_next_line_utils.c \
 					parsing/ft_extract_map.c \
-					parsing/ft_check_map_1.c \
-					parsing/ft_check_map_2.c \
-					parsing/ft_check_map_3.c \
-					parsing/ft_check_map_4.c \
-					parsing/ft_check_map_5.c \
+					parsing/ft_check_map.c \
+					parsing/ft_check_around_elements.c \
+					parsing/ft_check_first_last_line.c \
+					parsing/ft_check_walls_and_elements.c \
+					parsing/ft_player_position.c \
+					parsing/ft_map_carre.c \
 					parsing/free_all.c 
 
 
@@ -42,10 +43,10 @@ CFLAGS			= -g -fsanitize=address
 all				: $(NAME)
 
 %.o				: %.c
-	cc -c $< -o $@
+	cc $(CFLAGS) -c $< -o $@
 
 $(NAME)			: $(OBJS)
-	cc  $(OBJS) $(LINK) -o $(NAME) $(LIBS)
+	cc  $(CFLAGS) $(OBJS) $(LINK) -o $(NAME) $(LIBS)
 
 clean			:
 	rm -rf $(OBJS)

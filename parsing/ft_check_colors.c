@@ -6,13 +6,13 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:37:07 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 13:37:45 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:36:11 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int	ft_atoi( char *str)
+static int	ft_atoi( char *str)
 {
 	int	res;
 	int	negative;
@@ -34,7 +34,7 @@ int	ft_atoi( char *str)
 	return (res * negative);
 }
 
-t_color *ft_new_color(char *identif, int r, int g, int b)
+static t_color *ft_new_color(char *identif, int r, int g, int b)
 {
     t_color *new_node;
 
@@ -49,7 +49,7 @@ t_color *ft_new_color(char *identif, int r, int g, int b)
     return (new_node);
 }
 
-void ft_add_color(t_color **head, t_color *new_node)
+static void ft_add_color(t_color **head, t_color *new_node)
 {
     t_color *current;
 
@@ -81,22 +81,7 @@ int ft_count_color_size(t_color *head)
     return (count);
 }
 
-int is_digit(char    *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] >= 0 && str[i] <= 9)
-            i++;
-        else
-            return (1);
-    }
-    return (0);
-}
-
-int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
+static int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
 {
     char **tmp;
     char **col;
@@ -146,6 +131,6 @@ int ft_get_colors(t_data *data, char **map)
         i++;
     }
     if (c_count != 1 || f_count != 1)
-        return (printf("Error: There must be exactly one 'C' and one 'F'\n"));
+        return (printf("There must be exactly one 'C' and one 'F'\n"));
     return (0);
 }

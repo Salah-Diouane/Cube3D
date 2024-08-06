@@ -9,6 +9,7 @@
 # include "MLX42/MLX42.h"
 # include <stdarg.h>
 # include <fcntl.h>
+#include <stdbool.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1337
@@ -29,23 +30,28 @@ typedef struct s_col
 {
 	void			*ptr;
 	struct s_col	*next;
-}t_col;
+}					t_col;
 
 typedef enum e_call
 {
 	FREE,
 	MALLOC
-}t_call;
+}	t_call;
 
+typedef struct  s_bool
+{
+	bool has_one;
+	bool has_zero;
+	bool has_nsew;
 
-
+}				t_bool;
 
 
 typedef struct  s_point
 {
 	double         x;
 	double         y;
-}               t_point;
+}				t_point;
 
 
 typedef struct  s_face
@@ -62,8 +68,6 @@ typedef struct  s_face
 
 typedef struct  s_plr
 {
-	// N = 90 s = 270  w = 180  e 360
-	// x =	i  * 64, y = j * 64
 	double          d;
 	double          x;
 	double          y;
@@ -90,7 +94,6 @@ typedef struct  s_map
 	char		**map;
 	int         width;
 	int         height;
-	struct s_map   *next;
 }               t_map;
 
 typedef struct s_data
@@ -116,6 +119,9 @@ typedef struct s_data
 	int32_t         *texture_e;
 
 	t_map			*s_map;
+	t_bool			v_bool;
+
+	int             doors_nbr;;
 
 	int             wnd_ht;
 	int             wnd_wd;
@@ -134,57 +140,36 @@ typedef struct s_data
 	t_color         *colors;
 } t_data;
 
+// g_collecter : 
 void	clear_all(t_col **head);
 void	*g_malloc(size_t size, t_call call);
 
 // Parsing :
-void    ft_free_2d(char **arr);
-int		ft_strlen(char *s);
+int is_space(char c);
 char	*ft_strdup(char *s1);
-int		just_space(char *str);
+int	ft_strlen(char *s);
+int just_space(char *str);
+int ft_get_rows(char **map);
+int ft_check_map(t_data *data);
+char	**ft_read_map(char **arv);
+int ft_get_map(t_data *data, char **map);
+int ft_get_colors(t_data *data, char **map);
+int ft_get_texture(t_data *data, char **map);
+int	ft_get_last_index(char *line);
+int	ft_get_first_index(char *line);
+int ft_skip_last_spaces(char **map);
+int ft_check_around_elem(char **map);
+int ft_skip_first_spaces(char **map);
+int check_walls_and_elements(char **map);
+int ft_get_input(t_data *data, char **arv);
+int check_first_last_line(char **map);
+int ft_count_color_size(t_color *head);
+int ft_count_text_size(t_text *head);
 char	*get_next_line(int fd);
-char	*ft_read_line(char *s);
-int		ft_get_cols(char **map);
-int		ft_get_rows(char **map);
-int		ft_find(char *s, char c);
-char	*ft_move_string(char *s);
-int		is_space(unsigned char c);
-char	**ft_read_map(char **arv);
-char	**ft_read_map(char **arv);
-int		ft_check_map(t_data *data);
-int		ft_check_map(t_data *data);
-char	*trim_whitespace(char *str);
-int		is_all_ones(const char *str);
-int		ft_is_identifier(char *line);
-int		ft_check_content(char *line);
-int		find_longest_line(char **map);
-int		ft_count_map_line(char **map);
-int		ft_check_elements(char *line);
-char	*reader(int fd, char *reserve);
-int		ft_first_check_map(t_data *data);
-int		ft_count_text_size(t_text *head);
-int		ft_second_check_map(t_data *data);
-int		ft_count_color_size(t_color *head);
-int		ft_check_position_of_zero(char **cp_map, int *i, int *j);
-int		ft_get_map(t_data *data, char **map);
 char	*ft_strjoin(char *start, char *buff);
-int 	ft_get_input(t_data *data, char **arv);
-int		check_walls_and_elements(t_data *data, char **cp_map);
-int		ft_get_colors(t_data *data, char **map);
-int		ft_get_texture(t_data *data, char **map);
-int		ft_get_texture(t_data *data, char **map);
 char	*ft_join(char *dest, char *s1, char *s2);
-t_color *ft_new_color(char *identif, int r, int g, int b);
-t_text	*ft_new_texture(char *identif, char *chem);
-t_text	*ft_new_texture(char *identif, char *chem);
-int		check_first_last_line(char **cp_map, int j);
-void	ft_add_texture(t_text **head, t_text *new_node);
-void	ft_add_texture(t_text **head, t_text *new_node);
-void	ft_add_color(t_color **head, t_color *new_node);
-int		is_closed_by_walls(char **map, int rows, int cols);
-int		populate_cp_map(t_data *data, char **cp_map, int *i, int *j);
-int		initialize_cp_map(t_data *data, char ***cp_map, int *rows);
-int		populate_cp_map_without_trimming(t_data *data, char **cp_map, int *i, int *j);
+int	ft_find(char *s, char c);
+char **ft_new_map(char **map);
 
 
 // Execution :

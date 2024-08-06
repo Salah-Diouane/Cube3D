@@ -6,13 +6,13 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:35:47 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/05 15:13:53 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:36:36 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-t_text	*ft_new_texture(char *identif, char *chem)
+static t_text	*ft_new_texture(char *identif, char *chem)
 {
 	t_text  *new_node;
 
@@ -25,7 +25,7 @@ t_text	*ft_new_texture(char *identif, char *chem)
 	return (new_node);
 }
 
-void	ft_add_texture(t_text **head, t_text *new_node)
+static void	ft_add_texture(t_text **head, t_text *new_node)
 {
 	t_text  *current;
 
@@ -57,7 +57,7 @@ int ft_count_text_size(t_text *head)
     return (count);
 }
 
-int process_texture_line(t_data *data, char *line, int *no_count, int *so_count, int *we_count, int *ea_count)
+static int process_texture_line(t_data *data, char *line, int *no_count, int *so_count, int *we_count, int *ea_count)
 {
     char **tmp;
     t_text *txt = NULL;
@@ -100,6 +100,6 @@ int ft_get_texture(t_data *data, char **map)
         i++;
     }
     if (no_count != 1 || so_count != 1 || we_count != 1 || ea_count != 1)
-        return printf("Error: There must be exactly one 'NO', 'SO', 'WE', and 'EA'\n");
+        return printf("There must be exactly one 'NO', 'SO', 'WE', and 'EA'\n");
     return 0;
 }
