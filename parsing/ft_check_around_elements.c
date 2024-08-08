@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:11:43 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/06 12:39:43 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/08 09:51:41 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int ft_check_around_elem(char **map)
 	while (map[i] != NULL && i <= j)
 	{
 		j = 0;
-		while (map[i][j]!= '\0')
+		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == '0' || map[i][j] == 'D' || map[i][j] == 'N'
-					|| map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
+			if (map[i][j] == '0' || map[i][j] == 'D' || map[i][j] == 'N' || \
+					map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
 				if (ft_check_position_of_elem(map, map[i][j], &i, &j) != 0)
 					return (-1);
 			j++;

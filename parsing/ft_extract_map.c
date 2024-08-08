@@ -6,35 +6,11 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:35:28 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/06 15:34:06 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:25:27 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
-
-char	**ft_read_map(char **arv)
-{
-	int     fd;
-	int     len;
-	char	*line;
-	char	**all;
-
-	(1) && (fd = open(arv[1], O_RDONLY, 0777), len = 1,
-		line = get_next_line(fd));// protect fd && line 
-	while (line)
-		(1) && (len++, line = get_next_line(fd));
-	(1) && (free(line), close (fd), all = g_malloc(len * sizeof(char **), MALLOC));
-	(1) && (len = 0, fd = open(arv[1], O_RDONLY, 0777),
-		line = get_next_line(fd));
-	while (line)
-	{
-		all[len] = line;
-		line = get_next_line(fd);
-		len++;
-	}
-	(1) && (all[len] = NULL, close (fd));
-	return (all);
-}
 
 int ft_is_identifier(char *line)
 {
@@ -59,7 +35,6 @@ int ft_count_map_line(char **map)
 	return (map_lines);
 }
 
-
 int just_one_zero(char *str)
 {
 	int i;
@@ -77,25 +52,29 @@ int just_one_zero(char *str)
 
 int ft_get_map(t_data *data, char **map)
 {
-	int i;
-	int j;
+    int i;
+    int j;
 
-	(1) && (i = 0, j = 0);
-	data->s_map->map = (char **)g_malloc((ft_count_map_line(map) + 1) * sizeof(char *), MALLOC);
-	if (!data->s_map->map)
-		return (printf("creation map allocation failed !\n"));
-	i = 0;
-	while (map[i])
-	{
-		if (map[i] && !ft_is_identifier(map[i]))
-		{
-			data->s_map->map[j] = ft_strdup(map[i]);
-			if (!data->s_map->map[j][0])
-				return (printf("map line allocation failed !\n"));
-			j++;
-		}
-		i++;
-	}
-	data->s_map->map[j] = NULL;
-	return (0);
+    i = 0;
+    j = 0;
+    data->s_map->map = (char **)malloc((ft_count_map_line(map) + 1) * sizeof(char *));
+    if (!data->s_map->map)
+        return (printf("creation map allocation failed !\n"));
+    while (map[i])
+    {
+        if (map[i] && !ft_is_identifier(map[i]))
+        {
+            data->s_map->map[j] = ft_strdup(map[i]);
+            if (!data->s_map->map[j])
+            {
+                while (j > 0)
+                    free(data->s_map->map[--j]);
+                return (free(data->s_map->map), printf("allocation failed !\n"));
+            }
+            j++;
+        }
+        i++;
+    }
+    data->s_map->map[j] = NULL;
+    return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:09:26 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/06 15:26:14 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:21:23 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(char *s1)
 
 	i = 0;
 	len = ft_strlen(s1);
-	s2 = (char *)g_malloc(sizeof(char) * (len + 1), MALLOC);
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
 	if (!s2)
 		return (NULL);
 	while (s1[i] != '\0')
@@ -88,9 +88,11 @@ char	*ft_strjoin(char *start, char *buff)
 		return (ft_strdup(buff));
 	else if (!buff)
 		return (ft_strdup(start));
-	ptr = (char *)g_malloc(1 + ft_strlen(start) + ft_strlen(buff), MALLOC);
+	ptr = (char *)malloc(1 + ft_strlen(start) + ft_strlen(buff));
 	if (!ptr)
 		return (NULL);
 	ptr = ft_join(ptr, start, buff);
+	free(start);
 	return (ptr);
 }
+

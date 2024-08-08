@@ -6,79 +6,50 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:37:07 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/06 12:36:11 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:18:58 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-static int	ft_atoi( char *str)
+int ft_is_numeric(const char *str)
 {
-	int	res;
-	int	negative;
-
-	negative = 1;
-	res = 0;
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
-			*str == '\v' || *str == '\f' || *str == '\r'))
-		++str;
-	if (*str == '-')
-		negative = -1;
-	if (*str == '-' || *str == '+')
-		++str;
-	while (*str && *str >= '0' && *str <= '9')
-	{
-		res = res * 10 + (*str - 48);
-		++str;
-	}
-	return (res * negative);
-}
-
-static t_color *ft_new_color(char *identif, int r, int g, int b)
-{
-    t_color *new_node;
-
-    new_node = (t_color *)g_malloc(sizeof(t_color), MALLOC);
-    if (!new_node)
-        return (NULL);
-    new_node->identif = ft_strdup(identif);
-    new_node->r = r;
-    new_node->g = g;
-    new_node->b = b;
-    new_node->next = NULL;
-    return (new_node);
-}
-
-static void ft_add_color(t_color **head, t_color *new_node)
-{
-    t_color *current;
-
-    if (!head || !new_node)
-        return;
-    if (*head == NULL)
+    if (*str == '\0')
+        return (1);
+    while (*str && *str != '\n')
     {
-        *head = new_node;
-        return;
+        if (*str < '0' || *str > '9')
+            return (1);
+        str++;
     }
-    current = *head;
-    while (current->next)
-        current = current->next;
-    current->next = new_node;
+    return (0);
 }
 
-int ft_count_color_size(t_color *head)
+static int check_color_args(char **tmp, char **col)
 {
-    int count;
-    t_color *current;
+    if (tmp[2] != NULL || !tmp[0] || !tmp[1])
+        return (printf("COLORS : error more than one argument in texture\n"));
 
-    count = 0;
-    current = head;
-    while (current)
+    if (col[0] && col[1] && col[2])
     {
-        count++;
-        current = current->next;
+        if (col[0][0] == '\n' || col[1][0] == '\n' || col[2][0] == '\n')
+            return (printf("invalid rgb \n"));
+
+        if ((ft_atoi(col[0]) < 0 || ft_atoi(col[0]) > 255) ||
+            (ft_atoi(col[1]) < 0 || ft_atoi(col[1]) > 255) ||
+            (ft_atoi(col[2]) < 0 || ft_atoi(col[2]) > 255))
+            return (printf("invalid rgb \n"));
+
+        if (ft_is_numeric(col[0]) != 0 || ft_is_numeric(col[1]) != 0
+            || ft_is_numeric(col[2]) != 0)
+            return (printf("value is not numeric !!!! \n"));
     }
-    return (count);
+    return (0);
+}
+
+static t_color *create_color(char **tmp, char **col)
+{
+    return (ft_new_color(tmp[0], ft_atoi(col[0]), ft_atoi(col[1]), ft_atoi(col[2])));
 }
 
 static int process_color_line(t_data *data, char *line, int *c_count, int *f_count)
@@ -86,28 +57,27 @@ static int process_color_line(t_data *data, char *line, int *c_count, int *f_cou
     char **tmp;
     char **col;
     t_color *color = NULL;
+    int result;
 
     if (!strncmp(line, "C", 1))
         (*c_count)++;
     else if (!strncmp(line, "F", 1))
         (*f_count)++;
     tmp = ft_split(line, ' ');
-    if (tmp[2] != NULL || (!tmp[0] || !tmp[1]))
-        return printf("COLORS : error more than one argument in texture\n");
     col = ft_split(tmp[1], ',');
-    if (col[0] && col[1] && col[2])
+    result = check_color_args(tmp, col);
+    if (result != 0)
     {
-        if (col[0][0] == '\n' || col[1][0] == '\n' || col[2][0] == '\n')
-            return (printf("invalid rgb \n"));
-        if ((ft_atoi(col[0]) < 0 || ft_atoi(col[0]) > 255) || (ft_atoi(col[1]) < 0
-            || ft_atoi(col[1]) > 255) || (ft_atoi(col[2]) < 0 || ft_atoi(col[2]) > 255))
-            return printf("invalid rgb \n");
-        color = ft_new_color(tmp[0], ft_atoi(col[0]), ft_atoi(col[1]), ft_atoi(col[2]));
+        ft_free_2d(tmp);
+        ft_free_2d(col);
+        return result;
     }
-    if (color)
-        ft_add_color(&data->colors, color);
-    else
+    color = create_color(tmp, col);
+    ft_free_2d(tmp);
+    ft_free_2d(col);
+    if (!color)
         return (printf("Memory allocation failed\n"));
+    ft_add_color(&data->colors, color);
     return (0);
 }
 

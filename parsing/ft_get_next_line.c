@@ -6,7 +6,7 @@
 /*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:08:36 by sdiouane          #+#    #+#             */
-/*   Updated: 2024/08/06 12:37:53 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:42:24 by sdiouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*ft_read_line(char *s)
 		i++;
 	if (s[i] == '\n')
 		i++;
-	line = (char *)g_malloc(i + 1, MALLOC);
+	line = (char *)malloc(i + 1);
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -50,11 +50,11 @@ static char	*ft_move_string(char *s)
 		i++;
 	if (s[i] == '\0')
 	{
-		// free(s);
+		free(s);
 		return (NULL);
 	}
 	i += (s[i] == '\n');
-	new = (char *)g_malloc(ft_strlen(s) - i + 1, MALLOC);
+	new = (char *)malloc(ft_strlen(s) - i + 1);
 	if (!new)
 		return (NULL);
 	j = 0;
@@ -64,7 +64,7 @@ static char	*ft_move_string(char *s)
 		j++;
 	}
 	new[j] = '\0';
-	// free(s);
+	free(s);
 	return (new);
 }
 
@@ -75,7 +75,7 @@ static char	*reader(int fd, char *reserve)
 
 	line = NULL;
 	rd = 1;
-	line = (char *)g_malloc((size_t)BUFFER_SIZE + 1, MALLOC);
+	line = (char *)malloc((size_t)BUFFER_SIZE + 1);
 	if (!line)
 		return (NULL);
 	while (!(ft_find(reserve, '\n')) && rd != 0)
@@ -83,14 +83,14 @@ static char	*reader(int fd, char *reserve)
 		rd = read(fd, line, BUFFER_SIZE);
 		if (rd < 0)
 		{
-			// free(line);
-			// free(reserve);
+			free(line);
+			free(reserve);
 			return (NULL);
 		}
 		line[rd] = '\0';
 		reserve = ft_strjoin(reserve, line);
 	}
-	// free(line);
+	free(line);
 	return (reserve);
 }
 
@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	reserve = reader(fd, reserve);
 	if (!reserve)
 	{
-		// free(reserve);
+		free(reserve);
 		return (NULL);
 	}
 	line = ft_read_line(reserve);

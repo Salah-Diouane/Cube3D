@@ -53,7 +53,7 @@ static char *ft_take_word(char const *s, char c)
     len = ft_strlen_sp(s, c);
     if (len)
     {
-        word = g_malloc(sizeof(char) * (len + 1), MALLOC);
+        word = malloc(sizeof(char) * (len + 1));
         if (!word)
             return (NULL);
         while (len--)
@@ -74,7 +74,7 @@ char    **ft_split(char const *s, char c)
     wrds = ft_count_words(s, c);
     if (wrds)
     {
-        arr = (char **)g_malloc(sizeof(char*) * (wrds + 1), MALLOC);
+        arr = (char **)malloc(sizeof(char*) * (wrds + 1));
         if (!arr)
             return (NULL);
         while (*s)
@@ -84,7 +84,7 @@ char    **ft_split(char const *s, char c)
             if (*s)
                 arr[++i] = ft_take_word(s, c);
             if (!arr[i])
-                return (/*ft_free_2d(arr),*/ NULL);
+                return (ft_free_2d(arr), NULL);
             s += ft_strlen_sp(arr[i], c);
         }
         arr[++i] = NULL;
