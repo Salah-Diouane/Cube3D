@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_face_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bramzil <bramzil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:22:54 by bramzil           #+#    #+#             */
-/*   Updated: 2024/08/13 21:11:21 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:40:25 by bramzil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/manda.h"
+# include "../include/bonus.h"
 
 static void set_fix(t_face *tmp, t_point *arr, \
     t_point *ref, int i)

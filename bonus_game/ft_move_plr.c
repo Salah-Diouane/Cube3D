@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_move_plr.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 10:54:37 by bramzil           #+#    #+#             */
-/*   Updated: 2024/08/13 21:12:03 by sdiouane         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-# include "../include/manda.h"
+# include "../include/bonus.h"
 
 void    ft_clear_image(mlx_image_t *img)
 {
@@ -89,7 +77,12 @@ void ft_move_plr(int key, t_data *data)
         else if (key == 263)
             data->plr.d = real_angle(data->plr.d + \
                 (double)(2 * (M_PI / 180)));
+        else if ((key == 264) && (0 < data->plr.h))
+            data->plr.h -= 20;
+        else if ((key == 265) && (data->plr.h < data->wnd_ht))
+            data->plr.h += 20;
             ft_clear_image(data->proj_img);
+            ft_clear_image(data->map_img);
             ft_cast_rays(data);
     }
 }

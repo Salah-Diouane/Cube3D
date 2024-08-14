@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_intersection.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 10:55:07 by bramzil           #+#    #+#             */
-/*   Updated: 2024/08/13 21:11:10 by sdiouane         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-# include "../include/manda.h"
+# include "../include/bonus.h"
 
 static void get_dir(double angle, t_point *dir)
 {
@@ -23,15 +11,27 @@ static int  is_wall(t_data *dt, t_point *p, int x_d, int y_d)
 {
     int         i;
     int         j;
+    t_door      *door;
 
     i = (p->x / dt->grd_wd) - (1 * (x_d < 0));
     j = (p->y / dt->grd_ht) - (1 * (y_d < 0));
-    if ((p->x < 0) || (p->y < 0) || ((dt->grd_wd * \
-        dt->map.wd) < p->x) || ((dt->grd_ht * \
-            dt->map.ht) < p->y))
+    if ((p->x < 0) || (p->y < 0) || ((dt->grd_wd * dt->map.wd) < \
+        p->x) || ((dt->grd_ht * dt->map.ht) < p->y))
         return (1);
     else if (dt->map.arr[j][i] == '1')
         return (1);
+    else if (dt->map.arr[j][i] == 'd')
+    {
+        door = get_door(dt, i, j);
+        if (door && (x_d) && (((p->y < (j * dt->grd_ht + \
+            door->var)) || (((j * dt->grd_ht + 64) - \
+                door->var) < p->y))))
+            return (1);
+        else if (door && (y_d) && ((p->x < (i * dt->grd_wd + \
+            door->var)) || (((i * dt->grd_wd + 64) - \
+                door->var) < p->x)))
+            return (1);
+    }
     return (0);
 }
 

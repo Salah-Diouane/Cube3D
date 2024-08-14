@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_rendering.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 10:54:21 by bramzil           #+#    #+#             */
-/*   Updated: 2024/08/13 21:12:07 by sdiouane         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-# include "../include/manda.h"
+# include "../include/bonus.h"
 
 static int get_x_offset(t_data *data, t_face *tmp, double x)
 {
@@ -48,29 +36,26 @@ static void indices(t_data *data, t_face *tmp, int *tab, int x)
     }
 }
 
+
 static void  put_pixel(t_data *dt, t_point *ps, t_face *tp, int *ind)
 {
-
-    if (dt && dt->proj_img)
+    if (tp->fix == 'X')
     {
-        if (tp->fix == 'X')
-        {
-            if (dt->plr.x < dt->inter_arr[(int)ps->x].x)
-                mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
-                    dt->west_text.arr[ind[2]]);
-            else
-                mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
-                    dt->east_text.arr[ind[2]]);
-        }
+        if (dt->plr.x < dt->inter_arr[(int)ps->x].x)
+            mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
+                dt->west_text.arr[ind[2]]);
         else
-        {
-            if (dt->plr.y < dt->inter_arr[(int)ps->x].y)
-                mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
-                    dt->south_text.arr[ind[2]]);
-            else
-                mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
-                    dt->north_text.arr[ind[2]]);
-        }
+            mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
+                dt->east_text.arr[ind[2]]);
+    }
+    else
+    {
+        if (dt->plr.y < dt->inter_arr[(int)ps->x].y)
+            mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
+                dt->south_text.arr[ind[2]]);
+        else
+            mlx_put_pixel(dt->proj_img, ps->x, ps->y, \
+                dt->north_text.arr[ind[2]]);
     }
 }
 
@@ -78,17 +63,15 @@ static void  colum(t_data *data, t_face *tmp, t_point *offset, int x)
 {
     double      top;
     int         ind[3];
-    int         horizon;
     t_point     pixel_pos;
 
     pixel_pos.x = x;
     indices(data, tmp, ind, x);
-    horizon = data->wnd_ht / 2;
     if (data && tmp && offset)
     {
-        pixel_pos.y = horizon - (tmp->height / 2.0);
+        pixel_pos.y = data->plr.h - (tmp->height / 2.0);
         top = pixel_pos.y;
-        while (pixel_pos.y < (horizon + (tmp->height / 2.0)))
+        while (pixel_pos.y < (data->plr.h + (tmp->height / 2.0)))
         {
             offset->y = (int)((pixel_pos.y - top) * \
                 (data->grd_ht / tmp->height));

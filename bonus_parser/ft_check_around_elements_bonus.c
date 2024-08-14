@@ -12,19 +12,19 @@
 
 #include "../include/bonus_parser.h"
 
-int	ft_check_position_of_elem(char **cp_map, char c, int *i, int *j)
+int	ft_check_position_of_elem(char **map, char c, int *i, int *j)
 {
-	if (*i > 0 && (cp_map[*i - 1][*j] == ' ' || cp_map[*i - 1][*j] == '\t'
-			|| cp_map[*i - 1][*j] == '\0'))
+	if (*i > 0 && (map[*i - 1][*j] == ' ' || map[*i - 1][*j] == '\t'
+			|| map[*i - 1][*j] == '\0'))
 		return (printf("invalid_position of : -->%c<--\n", c));
-	if (cp_map[*i + 1] != NULL && (cp_map[*i + 1][*j] == ' '
-		|| cp_map[*i + 1][*j] == '\t' || cp_map[*i + 1][*j] == '\0'))
+	if (map[*i + 1] != NULL && (map[*i + 1][*j] == ' '
+		|| map[*i + 1][*j] == '\t' || map[*i + 1][*j] == '\0'))
 		return (printf("invalid_position of : -->%c<--\n", c));
-	if (*j > 0 && (cp_map[*i][*j - 1] == ' ' || cp_map[*i][*j - 1] == '\t'
-			|| cp_map[*i][*j - 1] == '\0'))
+	if (*j > 0 && (map[*i][*j - 1] == ' ' || map[*i][*j - 1] == '\t'
+			|| map[*i][*j - 1] == '\0'))
 		return (printf("invalid_position of : -->%c<--\n", c));
-	if (cp_map[*i][*j + 1] == ' ' || cp_map[*i][*j + 1] == '\t'
-			|| cp_map[*i][*j + 1] == '\0')
+	if (map[*i][*j + 1] == ' ' || map[*i][*j + 1] == '\t'
+			|| map[*i][*j + 1] == '\0')
 		return (printf("invalid_position of : -->%c<--\n", c));
 	return (0);
 }

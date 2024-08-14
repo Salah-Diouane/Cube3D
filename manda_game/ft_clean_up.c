@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/cube.h"
+# include "../include/manda.h"
 
 void    free_2d_arr(char **arr)
 {
@@ -47,8 +47,9 @@ void    clean_up(t_data *data)
 {
     free_map_text(data);
     free(data->inter_arr);
+    free_textures(data, 4);
+    free_lnkd_lst(data->face_lst);
     mlx_delete_image(data->mlx, data->proj_img);
     mlx_terminate(data->mlx);
-    free_lnkd_lst(data->face_lst);
     exit(0);
 }

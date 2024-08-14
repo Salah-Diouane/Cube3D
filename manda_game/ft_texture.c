@@ -10,7 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/cube.h"
+# include "../include/manda.h"
+
+void    free_textures(t_data *data, int set)
+{
+    if (1 <= set)
+        free (data->north_text.arr);
+    if (2 <= set)
+        free (data->south_text.arr);
+    if (3 <= set)
+        free (data->west_text.arr);
+    if (4 <= set)
+        free (data->east_text.arr);
+}
 
 mlx_image_t *load_image(t_data *data, char *path)
 {

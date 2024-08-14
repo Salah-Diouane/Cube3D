@@ -12,17 +12,17 @@
 
 #include "../include/manda_parser.h"
 
-double	ft_get_direction(char **cp_map, int *i, int *j)
+double	ft_get_direction(char **map, int *i, int *j)
 {
 	double	angle;
 
-	if (cp_map[*i][*j] == 'N')
+	if (map[*i][*j] == 'N')
 		angle = 90 * (M_PI / 180.0);
-	else if (cp_map[*i][*j] == 'S')
+	else if (map[*i][*j] == 'S')
 		angle = 270 * (M_PI / 180.0);
-	else if (cp_map[*i][*j] == 'W')
+	else if (map[*i][*j] == 'W')
 		angle = 180 * (M_PI / 180.0);
-	else if (cp_map[*i][*j] == 'E')
+	else if (map[*i][*j] == 'E')
 		angle = 0 * (M_PI / 180.0);
 	return (angle);
 }

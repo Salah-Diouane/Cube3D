@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/cube.h"
+# include "../include/manda.h"
 
 double  real_angle(double angle)
 {

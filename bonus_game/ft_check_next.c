@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_next.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdiouane <sdiouane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bramzil <bramzil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 00:57:57 by bramzil           #+#    #+#             */
-/*   Updated: 2024/08/13 21:11:55 by sdiouane         ###   ########.fr       */
+/*   Updated: 2024/08/08 08:05:56 by bramzil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/manda.h"
+# include "../include/bonus.h"
 
 static int  check_dir(t_data *data, double angle)
 {
     int             i;
     int             j;
     int             h;
+    t_door          *door;
     t_point         start;
 
     h = 0;
@@ -28,7 +29,9 @@ static int  check_dir(t_data *data, double angle)
             data->grd_wd;
         j = (start.y + (h * sin(angle) * -1)) / \
             data->grd_ht;
-        if (data->map.arr[j][i] == '1')
+        door = get_door(data, i, j);
+        if ((data->map.arr[j][i] == '1') || (door && \
+            (door->state != 'O')))
             return (1);
     }
     return (0);

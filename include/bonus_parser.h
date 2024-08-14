@@ -18,7 +18,7 @@
 # include <stdarg.h>
 # include <fcntl.h>
 # include <limits.h>
-# include "cube_bonus.h"
+# include "bonus.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1337

@@ -77,6 +77,7 @@ static	void	set_colors(t_data *data, t_color *colors)
 {
 	t_color	*tmp;
 
+	tmp = colors;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->identif, "C"))
@@ -96,6 +97,7 @@ int	ft_get_colors(t_data *data, char **map)
 	int		f_count;
 	t_color	*colors;
 
+	colors =  NULL;
 	(1) && (c_count = 0, f_count = 0, i = -1);
 	while (map[++i])
 	{

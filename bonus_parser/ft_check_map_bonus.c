@@ -12,17 +12,17 @@
 
 #include "../include/bonus_parser.h"
 
-double	ft_get_direction(char **cp_map, int *i, int *j)
+double	ft_get_direction(char **map, int *i, int *j)
 {
 	double	angle;
 
-	if (cp_map[*i][*j] == 'N')
+	if (map[*i][*j] == 'N')
 		angle = 90 * (M_PI / 180.0);
-	else if (cp_map[*i][*j] == 'S')
+	else if (map[*i][*j] == 'S')
 		angle = 270 * (M_PI / 180.0);
-	else if (cp_map[*i][*j] == 'W')
+	else if (map[*i][*j] == 'W')
 		angle = 180 * (M_PI / 180.0);
-	else if (cp_map[*i][*j] == 'E')
+	else if (map[*i][*j] == 'E')
 		angle = 0 * (M_PI / 180.0);
 	return (angle);
 }
@@ -69,7 +69,7 @@ static	int	ft_is_all_elem(t_data *data, int rows)
 	flags[2] = 0;
 	flags[3] = 0;
 	map_elmts(data, rows, &nsew_ct, flags);
-	if (flags[0] && flags[1] && flags[2] && flags[3]
+	if (flags[0] && flags[1] && flags[3]
 		&& (nsew_ct == 1))
 		return (0);
 	return (printf("you need more elem !!\n"));

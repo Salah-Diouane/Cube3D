@@ -43,7 +43,7 @@ static	int	process_texture_line(t_data *data, char *line, int *count)
 		return (ft_free_2d(tmp), printf("more than one argument in texture\n"));
 	if (tmp[1][ft_strlen(tmp[1]) - 1] == '\n')
 		tmp[1][ft_strlen(tmp[1]) - 1] = '\0';
-	ft_add_texture(data, tmp[0], tmp[1]);
+	ft_add_texture(data, tmp[0], ft_strdup(tmp[1]));
 	ft_free_2d(tmp);
 	return (0);
 }
