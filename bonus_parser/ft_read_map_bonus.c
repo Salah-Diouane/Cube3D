@@ -57,7 +57,7 @@ static	int	has_cube_extension(char *filename)
 	len_filename = ft_strlen(filename);
 	len_extension = ft_strlen(".cub");
 	if (len_filename >= len_extension && \
-		strncmp(filename + len_filename - len_extension, ".cube",
+		ft_strncmp(filename + len_filename - len_extension, ".cube",
 			len_extension) == 0)
 		return (1);
 	return (0);
@@ -65,7 +65,7 @@ static	int	has_cube_extension(char *filename)
 
 static	void	cub_check(char *map)
 {
-	if (strstr(map, ".cub") == 0
+	if (ft_strstr(map, ".cub") == 0
 		&& printf("Format should be '.cub'\n"))
 		exit(EXIT_FAILURE);
 }

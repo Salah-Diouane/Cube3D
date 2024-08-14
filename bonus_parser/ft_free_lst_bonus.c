@@ -32,15 +32,15 @@ void	free_map(t_map	*map)
 
 	if (map != NULL)
 	{
-		if (map->map != NULL)
+		if (map->arr != NULL)
 		{
 			i = 0;
-			while (map->map[i] != NULL)
+			while (map->arr[i] != NULL)
 			{
-				free(map->map[i]);
+				free(map->arr[i]);
 				i++;
 			}
-			free(map->map);
+			free(map->arr);
 		}
 		free(map);
 	}

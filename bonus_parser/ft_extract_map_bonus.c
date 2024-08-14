@@ -57,24 +57,24 @@ int	ft_get_map(t_data *data, char **map)
 
 	i = 0;
 	j = 0;
-	data->map->arr = (char **)malloc((ft_nbr_line(map) + 1) * sizeof(char *));
-	if (!data->map->arr)
+	data->map.arr = (char **)malloc((ft_nbr_line(map) + 1) * sizeof(char *));
+	if (!data->map.arr)
 		return (printf("creation map allocation failed !\n"));
 	while (map[i])
 	{
 		if (map[i] && !ft_is_identifier(map[i]))
 		{
-			data->map->arr[j] = ft_strdup(map[i]);
-			if (!data->map->arr[j])
+			data->map.arr[j] = ft_strdup(map[i]);
+			if (!data->map.arr[j])
 			{
 				while (j > 0)
-					free(data->map->arr[--j]);
-				return (free(data->map->arr), printf("allocation failed!\n"));
+					free(data->map.arr[--j]);
+				return (free(data->map.arr), printf("allocation failed!\n"));
 			}
 			j++;
 		}
 		i++;
 	}
-	data->map->arr[j] = NULL;
+	data->map.arr[j] = NULL;
 	return (0);
 }

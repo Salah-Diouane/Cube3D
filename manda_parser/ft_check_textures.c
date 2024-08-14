@@ -15,13 +15,13 @@
 static	void	ft_add_texture(t_data *data, char *identif, char *chem)
 {
 	if (!ft_strcmp(identif, "NO"))
-		data->north_text.path = chem;
+		data->north_text.path = ft_strdup(chem);
 	else if (!ft_strcmp(identif, "SO"))
-		data->south_text.path = chem;
+		data->south_text.path = ft_strdup(chem);
 	else if (!ft_strcmp(identif, "EA"))
-		data->east_text.path = chem;
+		data->east_text.path = ft_strdup(chem);
 	else if (!ft_strcmp(identif, "WE"))
-		data->west_text.path = chem;
+		data->west_text.path = ft_strdup(chem);
 }
 
 static	int	process_texture_line(t_data *data, char *line, int *count)

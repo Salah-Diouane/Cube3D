@@ -44,7 +44,7 @@ static	int	check_color_args(char **tmp, char **col)
 	return (0);
 }
 
-static	int	prc_color_line(t_data *data, char *line, int *c_count, int *f_count)
+static	int	prc_color_line(t_color *colors, char *line, int *c_ct, int *f_ct)
 {
 	int		result;
 	char	**tmp;
@@ -53,9 +53,9 @@ static	int	prc_color_line(t_data *data, char *line, int *c_count, int *f_count)
 
 	color = NULL;
 	if (!ft_strncmp(line, "C", 1))
-		(*c_count)++;
+		(*c_ct)++;
 	else if (!ft_strncmp(line, "F", 1))
-		(*f_count)++;
+		(*f_ct)++;
 	tmp = ft_split(line, ' ');
 	if (tmp[2])
 		return (ft_free_2d(tmp), -1);
@@ -73,11 +73,10 @@ static	int	prc_color_line(t_data *data, char *line, int *c_count, int *f_count)
 	return (0);
 }
 
-static	void	set_colors(t_data *data)
+static	void	set_colors(t_data *data, t_color *colors)
 {
 	t_color	*tmp;
 
-	tmp = colors;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->identif, "C"))
@@ -95,18 +94,19 @@ int	ft_get_colors(t_data *data, char **map)
 	int		i;
 	int		c_count;
 	int		f_count;
+	t_color	*colors;
 
 	(1) && (c_count = 0, f_count = 0, i = -1);
 	while (map[++i])
 	{
 		map[i][ft_strlen(map[i])] = '\0';
 		if (!ft_strncmp(map[i], "C", 1) || !ft_strncmp(map[i], "F", 1))
-			if (prc_color_line(data, map[i], &c_count, &f_count))
+			if (prc_color_line(colors, map[i], &c_count, &f_count))
 				return (1);
 	}
-	set_colors(data);
+	set_colors(data, colors);
+	free_color(colors);
 	if (c_count != 1 || f_count != 1)
 		return (printf("There must be exactly one 'C' and one 'F'\n"));
-	free_color(colors);
 	return (0);
 }

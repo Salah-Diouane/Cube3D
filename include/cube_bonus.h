@@ -17,7 +17,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "../MLX42/MLX42.h"
+# include <MLX42.h>
 
 typedef struct  s_point
 {

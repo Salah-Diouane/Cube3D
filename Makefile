@@ -65,11 +65,11 @@ NAME_MANDA		= cube
 
 NAME_BONUS		= cube_bonus
 
-LINK			= -framework Cocoa -framework OpenGL -framework IOKit
+# LINK			= -framework Cocoa -framework OpenGL -framework IOKit
 
-# LINK			= -lmlx42 -lglfw -lm
+LINK			= -lmlx42 -lglfw -lm
 
-LIBS			= MLX42/libmlx42.a -lglfw3
+# LIBS			= MLX42/libmlx42.a -lglfw3
 
 ############################# rules ###################################
 
@@ -78,10 +78,10 @@ all				: $(NAME_MANDA)
 bonus			: $(NAME_BONUS)
 
 %.o				: %.c cube.h
-	gcc -c $< -o $@ -O3 -ffast-math -g -fsanitize=address
+	gcc -c $< -o $@ -O3 -ffast-math 
 
 $(NAME_MANDA)	: $(OBJS_MANDA)
-	gcc $(OBJS_MANDA) -o $(NAME_MANDA) $(LINK) $(LIBS) -O3 -ffast-math -g -fsanitize=address
+	gcc $(OBJS_MANDA) -o $(NAME_MANDA) $(LINK) $(LIBS) -O3 -ffast-math 
 
 $(NAME_BONUS)	: $(OBJS_BONUS)
 	gcc $(OBJS_BONUS) -o $(NAME_BONUS) $(LINK) $(LIBS) -O3 -ffast-math -g -fsanitize=address

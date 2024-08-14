@@ -82,8 +82,7 @@ int	ft_get_input(t_data *data, char **arv)
 	if (ft_get_texture(data, map) != 0)
 		return (ft_free_2d(map), printf("ft_get_texture fails!!\n"));
 	if (ft_get_colors(data, map) != 0)
-		return (ft_free_2d(map), free_color(data->colors),
-			printf("ft_get_colors fails!!\n"));
+		return (ft_free_2d(map), printf("ft_get_colors fails!!\n"));
 	ft_free_2d(map);
 	return (0);
 }

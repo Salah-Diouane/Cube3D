@@ -27,16 +27,16 @@ static int  initiate_vars(t_data *data)
 static int  load_textures(t_data *data)
 {
     if (!(data->north_text.arr = get_texture_arr(data, \
-        "./wall.png")))
+        data->north_text.path)))
         return (-1);
     if (!(data->south_text.arr = get_texture_arr(data, \
-        "./wall.png")))
+        data->south_text.path)))
         return (-1);
     if (!(data->west_text.arr = get_texture_arr(data, \
-        "./wall.png")))
+        data->west_text.path)))
         return (-1);   
     if (!(data->east_text.arr = get_texture_arr(data, \
-        "./wall.png")))
+        data->east_text.path)))
         return (-1);
     return (0);
 }
@@ -64,6 +64,7 @@ int main(int ac, char **av)
         return (-1);
     if (ft_parsing(&data, av))
         return (-1);
+    printf("north: %s\n", data.north_text.path);
     if (ft_create_window(&data))
         return (-1);
     if (load_textures(&data))
